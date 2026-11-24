@@ -333,39 +333,40 @@
     <!-- TAB 5: DEEP SIDE-BY-SIDE (PICK UP TO 4, ALL PARAMS CATEGORIZED) -->
     <!-- =============================================================== -->
     <section id="ctab-deep" class="section hidden">
-      <div class="card stack-md xs">
+      <div class="card stack-md xs" id="dc-filter-card">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
           <div>
             <h2 class="card-title">Deep Side-by-Side Comparison — Pick Up to 4 Frameworks</h2>
-            <div class="muted">Compares your selected frameworks across <strong>all 66 engineering, governance, cost, org, lifecycle, rubric, SWOT &amp; concept parameters</strong> organized into 10 readable categories.</div>
+            <div id="dc-subtitle" class="muted">Compares your selected frameworks across <strong>all 66 parameters</strong> in 10 collapsible categories.</div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="flex-wrap">
             <span id="dc-param-count" class="xs mono muted"></span>
             <span id="dc-counter" class="pill pill-primary">Selected: 3 / 4 max</span>
+            <button class="btn-sm" onclick="expandAllDeepCats()">▾ Expand All</button>
+            <button class="btn-sm" onclick="collapseAllDeepCats()">▸ Collapse All</button>
+            <button id="dc-filter-toggle" class="btn-sm" onclick="toggleDeepFilters()">▴ Minimize Filters</button>
           </div>
         </div>
 
-        <div id="dc-picker" class="flex-wrap"></div>
+        <div id="dc-filter-body" class="stack-md">
+          <div id="dc-picker" class="flex-wrap"></div>
 
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-top:8px;border-top:1px solid var(--border);">
-          <div class="flex-wrap">
-            <span class="muted" style="font-weight:600;">Quick Matchups:</span>
-            <button class="btn-sm" onclick="setDeepPreset(['aws','anthropic-sdlc','bmad','tessl'])">Enterprise &amp; Rigor</button>
-            <button class="btn-sm" onclick="setDeepPreset(['openspec','cursor-pstack','specs-md','superpowers'])">Speed &amp; Brownfield</button>
-            <button class="btn-sm" onclick="setDeepPreset(['aws','spec-kit','kiro-specs','openspec'])">Spec-First Classics</button>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-top:8px;border-top:1px solid var(--border);">
+            <div class="flex-wrap">
+              <span class="muted" style="font-weight:600;">Quick Matchups:</span>
+              <button class="btn-sm" onclick="setDeepPreset(['aws','anthropic-sdlc','bmad','tessl'])">Enterprise &amp; Rigor</button>
+              <button class="btn-sm" onclick="setDeepPreset(['openspec','cursor-pstack','specs-md','superpowers'])">Speed &amp; Brownfield</button>
+              <button class="btn-sm" onclick="setDeepPreset(['aws','spec-kit','kiro-specs','openspec'])">Spec-First Classics</button>
+            </div>
+            <input id="dc-param-search" class="search-input" style="width:260px;" type="text" placeholder="Filter 66 params (token, TDD, audit, ops)..." oninput="deepSearch=this.value;renderDeepCompare();" />
           </div>
-          <div class="flex-wrap">
-            <input id="dc-param-search" class="search-input" style="width:240px;" type="text" placeholder="Filter 66 params (token, TDD, ops)..." oninput="deepSearch=this.value;renderDeepCompare();" />
-            <button class="btn-sm" onclick="expandAllDeepCats()">Expand All</button>
-            <button class="btn-sm" onclick="collapseAllDeepCats()">Collapse All</button>
-          </div>
+
+          <div id="dc-cat-filter" class="flex-wrap"></div>
         </div>
-
-        <div id="dc-cat-filter" class="flex-wrap"></div>
       </div>
 
       <div class="card card-flush">
-        <div class="table-wrap" style="max-height:78vh;overflow:auto;">
+        <div id="dc-table-wrap" class="table-wrap" style="max-height:76vh;overflow:auto;">
           <table class="dc-table">
             <thead id="dc-thead"></thead>
             <tbody id="dc-tbody"></tbody>
@@ -637,6 +638,17 @@
     function collapseAllDeepCats() {
       DEEP_CATS.forEach(([k]) => { if (k !== 'all') deepCollapsedCats.add(k); });
       renderDeepCompare();
+    }
+
+    function toggleDeepFilters() {
+      const body = document.getElementById('dc-filter-body');
+      const sub = document.getElementById('dc-subtitle');
+      const btn = document.getElementById('dc-filter-toggle');
+      const wrap = document.getElementById('dc-table-wrap');
+      const hidden = body.classList.toggle('hidden');
+      sub.classList.toggle('hidden', hidden);
+      btn.textContent = hidden ? '▾ Restore Filters' : '▴ Minimize Filters';
+      wrap.style.maxHeight = hidden ? '85vh' : '76vh';
     }
 
     const DEEP_CATS = [
