@@ -390,6 +390,12 @@ tr:last-child td { border-bottom: none; }
   max-height: 82vh;
   overflow-y: auto;
 }
+.mm-insp-collapsed #mm-canvas-col {
+  grid-column: span 12;
+}
+.mm-insp-collapsed #mm-insp-col {
+  display: none;
+}
 
 /* Phase buttons */
 .phase-btn {

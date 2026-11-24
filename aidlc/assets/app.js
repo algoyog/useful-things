@@ -952,6 +952,13 @@ function toggleSidebar() {
   reopenBar.classList.toggle('hidden', !collapsed);
 }
 
+function toggleInspector() {
+  const grid = document.getElementById('mm-grid');
+  const reopenBtn = document.getElementById('reopen-insp-btn');
+  const collapsed = grid.classList.toggle('mm-insp-collapsed');
+  reopenBtn.classList.toggle('hidden', !collapsed);
+}
+
 // =========================================================================
 // BOOTSTRAP STATIC GRIDS
 // =========================================================================
