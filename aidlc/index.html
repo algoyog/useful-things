@@ -3,560 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI-DLC — Complete Visual Understander &amp; First-Principles Guide</title>
-  <link rel="stylesheet" href="assets/styles.css?v=5" />
+  <title>AI-Driven SDLC &amp; Spec-Driven Frameworks — Complete Visual Hub</title>
+  <link rel="stylesheet" href="shared/guide-styles.css?v=1" />
 </head>
 <body>
-  <div id="app-layout" class="layout">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div>
-        <div class="brand-row">
-          <span class="brand-title">AI-DLC Visual Guide</span>
-          <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Collapse sidebar" aria-label="Collapse sidebar">«</button>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="./" class="topbar-brand">AI SDLC Visual Hub</a>
+      <div class="topbar-links">
+        <a href="./" class="topbar-link active">Home Hub</a>
+        <a href="comparison/" class="topbar-link">Total Comparison</a>
+        <a href="evaluation/" class="topbar-link">Evaluation &amp; Recommender</a>
+      </div>
+    </div>
+    <div class="xs muted">10 Frameworks · First Principles · Deep Mind Maps · Pure Light Theme</div>
+  </header>
+
+  <main class="main-wide section">
+    <header class="sec-header">
+      <span class="pill pill-primary">Complete Visual Reference</span>
+      <h1>AI-Driven SDLC &amp; Spec-Driven Development Frameworks</h1>
+      <p>First-principles guides, deep expandable mind maps, side-by-side trade-off comparisons, and an interactive evaluator comparing <strong>AWS AI-DLC</strong> against <strong>9 major alternatives</strong>.</p>
+    </header>
+
+    <!-- Top Cross-Framework Dashboards -->
+    <div class="grid-2">
+      <a href="comparison/" class="hub-card" style="border-left:4px solid var(--primary);">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="pill pill-primary">Cross-Framework</span>
+          <span class="xs mono muted">10 Frameworks × 10 Dimensions</span>
         </div>
-        <div class="brand-sub">First Principles · Paper · Repo v2.11.4</div>
+        <h2 class="card-title" style="font-size:17px;">Total Comparison Dashboard →</h2>
+        <div class="xs muted">Compare all 10 frameworks side by side across philosophy, workflow structure, ceremony, speed vs governance, greenfield vs brownfield, spec drift, human bottleneck, and main weaknesses — plus a custom head-to-head picker.</div>
+      </a>
+
+      <a href="evaluation/" class="hub-card" style="border-left:4px solid var(--chart-2);">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="pill pill-c2">Interactive Tool</span>
+          <span class="xs mono muted">Weighted Scoring Matrix</span>
+        </div>
+        <h2 class="card-title" style="font-size:17px;">Evaluation &amp; Fit Recommender →</h2>
+        <div class="xs muted">Dial your priorities (Governance, Shipping Speed, Brownfield Fit, Multi-Agent Autonomy, Spec Hygiene, Tool Portability) and watch all 10 frameworks dynamically score and rank for your team.</div>
+      </a>
+    </div>
+
+    <!-- All 8 Individual Visual Guides -->
+    <div class="stack-md">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <h2 class="card-title" style="font-size:16px;">Individual Deep-Dive Visual Guides (Each with First Principles + Deep Mind Map)</h2>
+        <span class="xs muted">Click any card to open its full visual guide</span>
       </div>
 
-      <div class="search-wrap">
-        <input id="global-search" class="search-input" type="text" placeholder="Search any concept, tool, hook..." oninput="handleSearch(this.value)" />
-        <button id="clear-search" class="clear-btn hidden" onclick="clearSearch()">✕</button>
+      <div class="grid-4">
+        <a href="aws/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-primary">Baseline</span>
+            <span class="xs mono muted">AWS Labs</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">AWS AI-DLC</div>
+          <div class="xs muted">Formal DDD, 5 phases, 33 stages, 14 agents, 17 hooks, 5 fences, 7 harnesses, plus Raja SP's Method Definition Paper.</div>
+          <div class="xs mono" style="color:var(--primary);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="spec-kit/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c1">SDD CLI</span>
+            <span class="xs mono muted">GitHub</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">GitHub Spec Kit</div>
+          <div class="xs muted">Clean linear spec-first pipeline: Constitution → Specify → Clarify → Plan → Tasks → Implement across 15+ AI tools.</div>
+          <div class="xs mono" style="color:var(--chart-1);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="bmad/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c5">Multi-Agent</span>
+            <span class="xs mono muted">Agile Personas</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">BMAD Method</div>
+          <div class="xs muted">Scale-adaptive agile rituals with 21+ role personas (Analyst, PM, Architect, Dev, QA) and Quick vs Full tracks.</div>
+          <div class="xs mono" style="color:var(--chart-5);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="openspec/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c2">Delta Specs</span>
+            <span class="xs mono muted">Brownfield-First</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">OpenSpec</div>
+          <div class="xs muted">Lightweight proposal &amp; delta markers (added/modified/removed) that archive cleanly back into living specs across 25+ tools.</div>
+          <div class="xs mono" style="color:var(--chart-2);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="anthropic-sdlc/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c6">Governance</span>
+            <span class="xs mono muted">Anthropic</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">Anthropic AI-Native SDLC</div>
+          <div class="xs muted">Enterprise playbook built around Claude Code with strict separation of duties and Git-committed <code>intent.md</code> trails.</div>
+          <div class="xs mono" style="color:var(--chart-6);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="cursor-pstack/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c3">Parallel Swarm</span>
+            <span class="xs mono muted">Cursor IDE</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">Cursor pstack</div>
+          <div class="xs muted">High-speed parallel agent playbooks (<code>/tdd</code>, <code>/swarm</code>, <code>/code-review</code>) with automated verifier agents replacing manual gates.</div>
+          <div class="xs mono" style="color:var(--chart-3);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="tessl/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c4">Spec-as-Source</span>
+            <span class="xs mono muted">CI/CD Sync</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">Tessl</div>
+          <div class="xs muted">Treats living specifications as the primary source of truth, continuously regenerating and validating code via automated tests.</div>
+          <div class="xs mono" style="color:var(--chart-4);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="specs-md/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c1">Lighter AI-DLC</span>
+            <span class="xs mono muted">FIRE &amp; Simple</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">specs.md (FIRE / Simple)</div>
+          <div class="xs muted">Lighter adaptive flows built on AI-DLC principles (0–2 adaptive gates in FIRE, 3-phase Simple) + VS Code visual dashboard.</div>
+          <div class="xs mono" style="color:var(--chart-1);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="kiro-specs/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c5">IDE-Native SDD</span>
+            <span class="xs mono muted">AWS Kiro</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">Kiro Native Specs (EARS)</div>
+          <div class="xs muted">Built-in 3-file IDE spec flow (<code>requirements.md</code> in EARS syntax → <code>design.md</code> → <code>tasks.md</code>) + Steering Docs &amp; Agent Hooks.</div>
+          <div class="xs mono" style="color:var(--chart-5);margin-top:auto;">Open Guide →</div>
+        </a>
+
+        <a href="superpowers/" class="hub-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="pill pill-c3">Agentic Skills</span>
+            <span class="xs mono muted">Obra / TDD</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;">Superpowers (Obra)</div>
+          <div class="xs muted">Composable engineering skills: Brainstorming → Plans → Git Worktrees → Fresh Subagent TDD → Two-Stage Review → Verification.</div>
+          <div class="xs mono" style="color:var(--chart-3);margin-top:auto;">Open Guide →</div>
+        </a>
       </div>
+    </div>
 
-      <div id="search-results" class="search-results hidden"></div>
-
-      <nav id="side-nav" class="nav">
-        <button data-sec="first-principles" onclick="showSection('first-principles')" class="nav-btn active">1. First Principles &amp; Theory</button>
-        <button data-sec="mindmap" onclick="showSection('mindmap')" class="nav-btn">2. Master Mind Map</button>
-        <button data-sec="paper" onclick="showSection('paper')" class="nav-btn">3. Method Paper &amp; Agile Diff</button>
-        <button data-sec="lifecycle" onclick="showSection('lifecycle')" class="nav-btn">4. 5 Phases, 33 Stages &amp; Scopes</button>
-        <button data-sec="practices" onclick="showSection('practices')" class="nav-btn">5. Techniques &amp; Practices</button>
-        <button data-sec="machinery" onclick="showSection('machinery')" class="nav-btn">6. Engine, Guards, Sensors &amp; Agents</button>
-        <button data-sec="harnesses" onclick="showSection('harnesses')" class="nav-btn">7. Harnesses, Plugins &amp; Build</button>
-      </nav>
-
-      <div class="assets-links">
-        <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:0.04em;">Reference Assets</div>
-        <a href="assets/AI-DLC-Method-Definition-Paper.pdf" target="_blank">📄 Method Definition Paper (PDF)</a>
-        <a href="assets/AI-DLC-Workflows-2.0-Specification.pdf" target="_blank">📄 AI-DLC 2.0 Specification (PDF)</a>
-        <a href="https://prod.d13rzhkk8cj2z0.amplifyapp.com/" target="_blank" rel="noopener">🌐 Original Paper Site</a>
-        <a href="https://github.com/awslabs/aidlc-workflows" target="_blank" rel="noopener">💻 awslabs/aidlc-workflows</a>
+    <!-- Quick Decision Rules -->
+    <div class="card stack-md xs">
+      <h2 class="card-title">30-Second Cheat Sheet: Which One Should You Pick?</h2>
+      <div class="grid-3">
+        <div class="sub-box stack-sm" style="gap:4px;">
+          <div style="font-weight:600;color:var(--primary);">Enterprise &amp; Strict Governance</div>
+          <div class="muted"><strong>AWS AI-DLC</strong> (complex greenfield + DDD) or <strong>Anthropic AI-Native SDLC</strong> (separation of duties + <code>intent.md</code> without 33 stages).</div>
+        </div>
+        <div class="sub-box stack-sm" style="gap:4px;">
+          <div style="font-weight:600;color:var(--chart-2);">Brownfield &amp; Fast Iteration</div>
+          <div class="muted"><strong>OpenSpec</strong> (compact delta specs that never go stale) or <strong>specs.md FIRE</strong> (0–2 adaptive checkpoints on monorepos).</div>
+        </div>
+        <div class="sub-box stack-sm" style="gap:4px;">
+          <div style="font-weight:600;color:var(--chart-3);">Speed, Portability or Living Specs</div>
+          <div class="muted"><strong>GitHub Spec Kit</strong> (clean portable standard), <strong>BMAD</strong> (agile AI personas), <strong>Cursor pstack</strong> (max-speed swarms), <strong>Tessl</strong> (spec-as-source).</div>
+        </div>
       </div>
-
-      <div class="stats-grid">
-        <div class="stat-box"><div class="stat-val">5 / 33</div><div class="stat-lbl">Phases / Stages</div></div>
-        <div class="stat-box"><div class="stat-val">14 / 11</div><div class="stat-lbl">Agents / Scopes</div></div>
-        <div class="stat-box"><div class="stat-val">6 / 17</div><div class="stat-lbl">Sensors / Hooks</div></div>
-        <div class="stat-box"><div class="stat-val">7 / 132</div><div class="stat-lbl">Harnesses / Tools</div></div>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="main">
-      <div id="reopen-sidebar-bar" class="reopen-bar hidden">
-        <button class="reopen-btn" onclick="toggleSidebar()">☰ Show Menu</button>
-      </div>
-
-      <!-- SECTION 1: FIRST PRINCIPLES -->
-      <section id="sec-first-principles" class="section">
-        <header class="sec-header">
-          <span class="pill pill-primary">Part 1 · First Principles</span>
-          <h1>Why AI-DLC Exists — From First Principles</h1>
-          <p>Strip away all buzzwords. Every folder, hook, stage, and ritual in AI-DLC exists to solve <strong>four fundamental physics problems</strong> of building software with AI.</p>
-        </header>
-
-        <div class="grid-2">
-          <div class="card xs stack-sm">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span class="pill pill-c6">First Principle #1</span>
-              <span class="muted">Speed vs Structure</span>
-            </div>
-            <h2 class="card-title">LLMs are probabilistic, not deterministic</h2>
-            <div class="muted"><strong>The Root Problem:</strong> If you ask an LLM to remember what stage is next, what you approved 20 messages ago, or whether tests passed, it will eventually drift — especially after context compaction.</div>
-            <div class="divider-top"><strong>AI-DLC's Solution:</strong> Split the job cleanly. <strong>Tools own determinism</strong> (state files, stage routing, receipts, audit logs, sensors). <strong>LLMs own knowledge</strong> (design, coding, explaining trade-offs).</div>
-          </div>
-
-          <div class="card xs stack-sm">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span class="pill pill-c1">First Principle #2</span>
-              <span class="muted">Quick-Cement Problem</span>
-            </div>
-            <h2 class="card-title">Unchecked AI code hardens into "quick-cement"</h2>
-            <div class="muted"><strong>The Root Problem:</strong> AI writes thousands of lines in minutes. If an early requirement or architecture assumption is wrong, AI rapidly pours massive code on top of the mistake.</div>
-            <div class="divider-top"><strong>AI-DLC's Solution:</strong> Minimal, sharp <strong>human approval gates as a "loss function"</strong> (plus adversarial reviewers &amp; Walking Skeletons) catch mistakes while changes are still cheap.</div>
-          </div>
-
-          <div class="card xs stack-sm">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span class="pill pill-c2">First Principle #3</span>
-              <span class="muted">Google Maps Model</span>
-            </div>
-            <h2 class="card-title">Reverse the conversation direction</h2>
-            <div class="muted"><strong>The Root Problem:</strong> In "AI-Assisted" coding, humans manually break down tasks and micro-prompt the AI — bolting an engine onto a horse-drawn chariot.</div>
-            <div class="divider-top"><strong>AI-DLC's Solution:</strong> You set the destination (<strong>Intent</strong>). AI proposes the route, asks clarifying questions, presents trade-offs, and runs rapid <strong>Bolts</strong> — while <strong>you hold the steering wheel</strong>.</div>
-          </div>
-
-          <div class="card xs stack-sm">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span class="pill pill-c3">First Principle #4</span>
-              <span class="muted">Compounding Context</span>
-            </div>
-            <h2 class="card-title">Chat history evaporates; repo artifacts compound</h2>
-            <div class="muted"><strong>The Root Problem:</strong> When a chat session ends or compacts, every design decision and "why" vanishes. The next session starts blind.</div>
-            <div class="divider-top"><strong>AI-DLC's Solution:</strong> Persist every Intent, Story, DDD model, ADR, state checkbox, and audit event inside <code>aidlc/</code> as <strong>Context Memory</strong> — so every stage makes the next smarter.</div>
-          </div>
-        </div>
-
-        <div class="card stack-md">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-            <h2 class="card-title">The 4 Golden Tenets (Strict Priority Order — #1 Wins Any Conflict)</h2>
-            <span class="xs mono muted">From AGENTS.md</span>
-          </div>
-          <div class="grid-4 xs">
-            <div class="sub-box" style="border-left:4px solid var(--chart-6);">
-              <div style="font-weight:600;margin-bottom:4px;">1. Human drives the engine</div>
-              <div class="muted">You keep the wheel. Plain-English status, undo paths, asks once, never refuses an explicit request.</div>
-            </div>
-            <div class="sub-box" style="border-left:4px solid var(--chart-1);">
-              <div style="font-weight:600;margin-bottom:4px;">2. Tools for determinism</div>
-              <div class="muted">Scripts &amp; hooks handle routing, state, receipts, and guards identically every time.</div>
-            </div>
-            <div class="sub-box" style="border-left:4px solid var(--chart-2);">
-              <div style="font-weight:600;margin-bottom:4px;">3. LLM for knowledge</div>
-              <div class="muted">Agents bring coding, architecture, security &amp; testing expertise and explain options simply.</div>
-            </div>
-            <div class="sub-box" style="border-left:4px solid var(--chart-3);">
-              <div style="font-weight:600;margin-bottom:4px;">4. Human for judgement</div>
-              <div class="muted">You decide what to build, trade-offs, and gate approvals.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card stack-md">
-            <div>
-              <span class="pill pill-c1">Architecture Theory</span>
-              <h2 class="card-title" style="margin-top:8px;">3-Plane Architecture (Borrowed from Networking)</h2>
-              <div class="xs muted" style="margin-top:3px;">Separates three cadences so failures isolate cleanly:</div>
-            </div>
-            <div class="stack-sm xs">
-              <div class="sub-box">
-                <div style="display:flex;justify-content:space-between;font-weight:600;"><span style="color:var(--chart-1)">Control Plane (Compiled Schema)</span><span class="mono muted">Compiled once</span></div>
-                <div class="muted" style="margin-top:4px;">Stage definitions, 5-layer Rules, and Sensor bindings compiled atomically into the stage graph.</div>
-              </div>
-              <div class="sub-box">
-                <div style="display:flex;justify-content:space-between;font-weight:600;"><span style="color:var(--chart-2)">Data Plane (Live Execution)</span><span class="mono muted">Per-stage / Bolt</span></div>
-                <div class="muted" style="margin-top:4px;">Actual stage runs, Units, Bolts, artifacts, <code>runtime-graph.json</code>, and 134-event audit trail.</div>
-              </div>
-              <div class="sub-box">
-                <div style="display:flex;justify-content:space-between;font-weight:600;"><span style="color:var(--chart-3)">Management Plane (Observe &amp; Fix)</span><span class="mono muted">On demand</span></div>
-                <div class="muted" style="margin-top:4px;"><code>aidlc doctor</code>, <code>/aidlc --status</code>, audit queries, issue reports, and onboarding docs.</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card stack-md">
-            <div>
-              <span class="pill pill-c4">Control Theory</span>
-              <h2 class="card-title" style="margin-top:8px;">The Control Loop &amp; Learning Loop</h2>
-              <div class="xs muted" style="margin-top:3px;">How the factory learns permanently from every human correction:</div>
-            </div>
-            <svg viewBox="0 0 460 225" style="width:100%;height:auto;display:block;" role="img" aria-label="Control Loop and Learning Loop">
-              <defs>
-                <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--muted-foreground)" />
-                </marker>
-              </defs>
-              <rect x="10" y="20" width="125" height="58" rx="10" fill="var(--content)" stroke="var(--chart-1)" stroke-width="1.6"/>
-              <text x="72" y="43" text-anchor="middle" fill="var(--foreground)" font-size="12" font-weight="600">Rules (Memory)</text>
-              <text x="72" y="61" text-anchor="middle" fill="var(--muted-foreground)" font-size="10.5">Feedforward (Before)</text>
-
-              <rect x="168" y="20" width="125" height="58" rx="10" fill="var(--content)" stroke="var(--primary)" stroke-width="1.8"/>
-              <text x="230" y="43" text-anchor="middle" fill="var(--foreground)" font-size="12" font-weight="600">Stage &amp; Agent</text>
-              <text x="230" y="61" text-anchor="middle" fill="var(--muted-foreground)" font-size="10.5">Produces Artifacts</text>
-
-              <rect x="325" y="20" width="125" height="58" rx="10" fill="var(--content)" stroke="var(--chart-2)" stroke-width="1.6"/>
-              <text x="387" y="43" text-anchor="middle" fill="var(--foreground)" font-size="12" font-weight="600">Sensors (6)</text>
-              <text x="387" y="61" text-anchor="middle" fill="var(--muted-foreground)" font-size="10.5">Feedback (After)</text>
-
-              <rect x="130" y="140" width="200" height="62" rx="10" fill="var(--content)" stroke="var(--chart-4)" stroke-width="1.6"/>
-              <text x="230" y="164" text-anchor="middle" fill="var(--foreground)" font-size="12" font-weight="600">Human Gate + Learning Loop</text>
-              <text x="230" y="182" text-anchor="middle" fill="var(--muted-foreground)" font-size="10.5">"Keep that correction for next time?"</text>
-
-              <line x1="135" y1="49" x2="164" y2="49" stroke="var(--muted-foreground)" stroke-width="1.5" marker-end="url(#arr)"/>
-              <line x1="293" y1="49" x2="321" y2="49" stroke="var(--muted-foreground)" stroke-width="1.5" marker-end="url(#arr)"/>
-              <path d="M 387 78 L 387 171 L 334 171" fill="none" stroke="var(--muted-foreground)" stroke-width="1.5" marker-end="url(#arr)"/>
-              <path d="M 130 171 L 72 171 L 72 82" fill="none" stroke="var(--chart-4)" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arr)"/>
-              <text x="25" y="128" fill="var(--chart-4)" font-size="10.5" font-weight="600">Writes to</text>
-              <text x="16" y="142" fill="var(--muted-foreground)" font-size="10">project.md / team.md</text>
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 2: MIND MAP -->
-      <section id="sec-mindmap" class="section hidden">
-        <header class="sec-header">
-          <span class="pill pill-c1">Part 2 · Deep Interactive Mind Map</span>
-          <h1>Master Mind Map — Click Any Node to Drill Down to Every Concept</h1>
-          <p>Click any node with a <strong>+N</strong> badge to expand its children all the way down to the last leaf (all 10 Principles, 33 Stages, 14 Agents, 11 Scopes, 6 Sensors, 5 Fences, 7 Harnesses, and more) and read its full explanation on the right.</p>
-        </header>
-
-        <div id="mm-grid" class="grid-12">
-          <div id="mm-canvas-col" class="col-8 card card-flush">
-            <div class="card-header xs">
-              <span class="muted">Click node to inspect &amp; expand · Click <strong>−</strong> to collapse</span>
-              <div class="mm-toolbar">
-                <button class="btn-sm" onclick="zoomMindMap(-0.15)">− Zoom</button>
-                <span id="mm-zoom-label" class="mono muted">100%</span>
-                <button class="btn-sm" onclick="zoomMindMap(0.15)">+ Zoom</button>
-                <button class="btn-sm" onclick="expandAllMindMap()">Expand All</button>
-                <button class="btn-sm" onclick="collapseMindMap()">Reset</button>
-                <button id="reopen-insp-btn" class="btn-sm hidden" onclick="toggleInspector()">« Show Details</button>
-              </div>
-            </div>
-            <div id="mm-scroll" class="svg-wrap">
-              <svg id="mindmap-svg" style="display:block;user-select:none;">
-                <g id="mm-links"></g>
-                <g id="mm-nodes"></g>
-              </svg>
-            </div>
-          </div>
-
-          <aside id="mm-insp-col" class="col-4 card stack-md insp-sticky">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
-              <div id="insp-crumbs" class="crumb-bar"></div>
-              <button class="sidebar-toggle-btn" onclick="toggleInspector()" title="Collapse details panel" aria-label="Collapse details panel">»</button>
-            </div>
-            <div>
-              <span id="insp-badge" class="pill pill-primary">Overview</span>
-              <h2 id="insp-title" class="card-title" style="margin-top:8px;font-size:16px;">AI-DLC</h2>
-            </div>
-            <div id="insp-summary" class="xs"></div>
-
-            <div id="insp-why-box" class="sub-box xs stack-sm" style="gap:4px;">
-              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">First-Principles "Why"</div>
-              <div id="insp-why"></div>
-            </div>
-
-            <div id="insp-analogy-box" class="sub-box xs stack-sm" style="gap:4px;">
-              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">Simple Analogy</div>
-              <div id="insp-analogy"></div>
-            </div>
-
-            <div id="insp-children-box" class="stack-sm xs">
-              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">Drill Down Into Children</div>
-              <div id="insp-children" class="flex-wrap"></div>
-            </div>
-
-            <div id="insp-items-box" class="stack-sm xs">
-              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">Key Facts</div>
-              <ul id="insp-items" style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;"></ul>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <!-- SECTION 3: METHOD PAPER -->
-      <section id="sec-paper" class="section hidden">
-        <header class="sec-header">
-          <span class="pill pill-c6">Part 3 · Method Paper</span>
-          <h1>The AI-DLC Method Definition Paper (Raja SP, AWS)</h1>
-          <p>The 8-page foundational paper behind this repo: 10 principles, new vocabulary, Mob rituals, and the 9-step context-building flow.</p>
-        </header>
-
-        <div class="card card-flush">
-          <div class="card-header">
-            <h2 class="card-title">Vocabulary Translator: Agile / Scrum → AI-DLC</h2>
-            <span class="xs muted">Associative learning — pick it up in 1 day</span>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Traditional Agile / Scrum</th><th>AI-DLC Concept</th><th>Plain-English Meaning</th></tr>
-              </thead>
-              <tbody>
-                <tr><td class="muted">Initiative / Business Goal</td><td class="mono" style="font-weight:600;color:var(--chart-6)">Intent</td><td>High-level goal (feature, refactor, scale) that starts AI decomposition.</td></tr>
-                <tr><td class="muted">Epic / DDD Subdomain</td><td class="mono" style="font-weight:600;color:var(--chart-1)">Unit of Work</td><td>Loosely coupled, independently buildable &amp; deployable slice of value.</td></tr>
-                <tr><td class="muted">Sprint (2–6 weeks)</td><td class="mono" style="font-weight:600;color:var(--chart-2)">Bolt (hours or days)</td><td>Rapid build-and-validate cycle executing one or more linked Units at AI speed.</td></tr>
-                <tr><td class="muted">Backlog Refinement</td><td class="mono" style="font-weight:600;color:var(--chart-3)">Mob Elaboration</td><td>PO + Devs + QA + AI in one room turning Intent into Stories, NFRs, Risks &amp; Units in hours.</td></tr>
-                <tr><td class="muted">Solo Coding + Async PRs</td><td class="mono" style="font-weight:600;color:var(--chart-4)">Mob Construction</td><td>Mob Programming + Mob Testing: AI generates DDD models, ADRs, code &amp; tests; team validates live.</td></tr>
-                <tr><td class="muted">Brown-field Docs / Wiki</td><td class="mono" style="font-weight:600;color:var(--chart-5)">Static &amp; Dynamic Models</td><td>AI reverse-engineers existing code into component maps (Static) &amp; use-case flows (Dynamic).</td></tr>
-                <tr><td class="muted">Release Package</td><td class="mono" style="font-weight:600;color:var(--primary)">Deployment Unit</td><td>Tested, secured, instrumented, IaC-packaged artifact (containers, Lambda, Terraform/CDK).</td></tr>
-                <tr><td class="muted">Standups, Story Points, Velocity</td><td class="mono" style="font-weight:600;">Retired / Replaced</td><td>Replaced by continuous real-time validation &amp; Business Value. User Stories &amp; Risk Register stay.</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="card stack-md">
-          <h2 class="card-title">The Paper's 9-Step Context-Compounding Flow</h2>
-          <div class="grid-3 xs">
-            <div class="sub-box stack-sm">
-              <div style="font-weight:600;color:var(--chart-1)">Phase 1 · Inception (Mob Elaboration)</div>
-              <ol class="muted" style="margin:0;padding-left:18px;">
-                <li>Build Context From Existing Code</li>
-                <li>Elaborate Intent With User Stories, NFRs, Risks, PRFAQ</li>
-                <li>Plan Units of Work &amp; Suggested Bolts</li>
-              </ol>
-            </div>
-            <div class="sub-box stack-sm">
-              <div style="font-weight:600;color:var(--chart-2)">Phase 2 · Construction (Mob Prog &amp; Test)</div>
-              <ol start="4" class="muted" style="margin:0;padding-left:18px;">
-                <li>Model Domain (DDD), Code &amp; Unit Test</li>
-                <li>Solve NFRs via Logical Design &amp; ADRs</li>
-                <li>Resolve Deployment Arch, Security &amp; Load Tests</li>
-                <li>Generate IaC &amp; Package Deployment Units</li>
-              </ol>
-            </div>
-            <div class="sub-box stack-sm">
-              <div style="font-weight:600;color:var(--chart-3)">Phase 3 · Operations</div>
-              <ol start="8" class="muted" style="margin:0;padding-left:18px;">
-                <li>Deploy Deployment Units in Production</li>
-                <li>Analyze Telemetry, Predict SLAs &amp; Propose Runbook Fixes</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        <div class="card stack-md">
-          <h2 class="card-title">All 10 Principles from the Method Definition Paper</h2>
-          <div id="principles-grid" class="grid-2"></div>
-        </div>
-      </section>
-
-      <!-- SECTION 4: LIFECYCLE -->
-      <section id="sec-lifecycle" class="section hidden">
-        <header class="sec-header">
-          <span class="pill pill-c2">Part 4 · Lifecycle &amp; Routes</span>
-          <h1>5 Phases, 33 Stages &amp; 11 Workflow Scopes</h1>
-          <p>How the repo turns the paper's lifecycle into 33 modular stations and 11 ready-made routes (scopes).</p>
-        </header>
-
-        <div class="grid-12">
-          <div class="col-5 stack-sm" id="phase-list"></div>
-          <div class="col-7 card stack-md">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
-              <div>
-                <span id="ph-badge" class="pill pill-c1">Phase</span>
-                <h2 id="ph-title" class="card-title" style="margin-top:6px;font-size:18px;"></h2>
-              </div>
-              <span id="ph-paper-tag" class="pill"></span>
-            </div>
-            <div id="ph-desc" class="xs muted"></div>
-            <div id="ph-stages" class="grid-2"></div>
-            <div class="divider-top flex-wrap xs">
-              <span class="muted" style="font-weight:600;">Agents:</span>
-              <div id="ph-agents" class="flex-wrap"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card stack-md">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-            <h2 class="card-title">All 11 Workflow Scopes (Presets) — Pick Your Assembly Line</h2>
-            <span class="xs muted">Depth: Minimal · Standard · Comprehensive</span>
-          </div>
-          <div id="scopes-grid" class="grid-3"></div>
-        </div>
-      </section>
-
-      <!-- SECTION 5: PRACTICES -->
-      <section id="sec-practices" class="section hidden">
-        <header class="sec-header">
-          <span class="pill pill-c3">Part 5 · Techniques &amp; Practices</span>
-          <h1>Every Execution Technique, Collaboration Ritual &amp; Practice</h1>
-          <p>The concrete engineering practices that make AI-DLC reliable on real codebases.</p>
-        </header>
-
-        <div class="card stack-md">
-          <h2 class="card-title">4 Stage Execution Modes (How Agents Collaborate)</h2>
-          <div class="grid-4 xs">
-            <div class="sub-box stack-sm"><div><span class="pill pill-c1">1. Inline</span></div><div style="font-weight:600;">Direct in Chat</div><div class="muted">Default mode. Conductor wears the lead agent's hat in the main chat for fast real-time Q&amp;A.</div></div>
-            <div class="sub-box stack-sm"><div><span class="pill pill-c2">2. Subagent (Hub)</span></div><div style="font-weight:600;">Isolated Focus / Spokes</div><div class="muted">Dispatches a separate agent context (e.g., Code Generation, or Practices Discovery with 3 blind spokes).</div></div>
-            <div class="sub-box stack-sm"><div><span class="pill pill-c3">3. Pipeline</span></div><div style="font-weight:600;">Ordered Chain</div><div class="muted">Agents run in strict order, each seeing all upstream output with receipts (e.g., Reverse Engineering).</div></div>
-            <div class="sub-box stack-sm"><div><span class="pill pill-c4">4. Mob Mesh</span></div><div style="font-weight:600;">Mutually Blind Rounds</div><div class="muted">Lead drafts, blind collaborators critique/contribute in parallel, lead integrates (e.g., User Stories).</div></div>
-          </div>
-        </div>
-
-        <div id="practices-grid" class="grid-2"></div>
-
-        <div class="grid-2 xs">
-          <div class="card stack-md">
-            <h2 class="card-title">5-Layer Additive Rules Chain (<code>memory/</code>)</h2>
-            <div class="muted">Strictly additive: broader rules are never silently deleted — each layer adds specificity.</div>
-            <div class="flex-wrap mono">
-              <span class="pill pill-c1">1. org.md</span><span class="muted">→</span>
-              <span class="pill pill-c2">2. team.md</span><span class="muted">→</span>
-              <span class="pill pill-c3">3. project.md</span><span class="muted">→</span>
-              <span class="pill pill-c4">4. phase</span><span class="muted">→</span>
-              <span class="pill pill-c5">5. stage</span>
-            </div>
-          </div>
-
-          <div class="card stack-md">
-            <h2 class="card-title">6-State Progress Checkboxes (<code>aidlc-state.md</code>)</h2>
-            <div class="muted">Survives context compaction and multi-session resumes cleanly.</div>
-            <div class="grid-3 mono">
-              <div class="sub-box" style="padding:8px;"><strong>[ ]</strong> Pending</div>
-              <div class="sub-box" style="padding:8px;"><strong>[-]</strong> In Progress</div>
-              <div class="sub-box" style="padding:8px;"><strong>[?]</strong> Waiting</div>
-              <div class="sub-box" style="padding:8px;"><strong>[R]</strong> In Review</div>
-              <div class="sub-box" style="padding:8px;"><strong>[x]</strong> Approved</div>
-              <div class="sub-box" style="padding:8px;"><strong>[S]</strong> Skipped</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 6: MACHINERY -->
-      <section id="sec-machinery" class="section hidden">
-        <header class="sec-header">
-          <span class="pill pill-c4">Part 6 · Engine &amp; Safety</span>
-          <h1>Engine, Guards (Fences), Sensors, Agents &amp; Tools</h1>
-          <p>Every deterministic tool, hook, sensor, reviewer, and MCP integration under the hood.</p>
-        </header>
-
-        <div class="card stack-md">
-          <h2 class="card-title">The Conductor ↔ Deterministic Engine Loop</h2>
-          <div class="xs muted">The Conductor (<code>SKILL.md</code>) NEVER decides routing. It calls <code>aidlc-orchestrate.ts</code> (6 subcommands: <code>next</code>, <code>continue</code>, <code>report</code>, <code>park</code>, <code>team-board</code>, <code>wait</code>).</div>
-          <div class="grid-4 xs">
-            <div class="sub-box"><div class="mono" style="font-weight:600;color:var(--chart-1)">1. engine next</div><div class="muted" style="margin-top:4px;">Conductor asks the Engine what happens next.</div></div>
-            <div class="sub-box"><div class="mono" style="font-weight:600;color:var(--chart-2)">2. Typed Directive</div><div class="muted" style="margin-top:4px;">Engine emits: <code>run-stage</code>, <code>ask</code>, <code>invoke-swarm</code>, <code>print</code>, or <code>done</code>.</div></div>
-            <div class="sub-box"><div class="mono" style="font-weight:600;color:var(--chart-3)">3. Execute Station</div><div class="muted" style="margin-top:4px;">Conductor runs the stage/agent, asks human if needed, fires sensors.</div></div>
-            <div class="sub-box"><div class="mono" style="font-weight:600;color:var(--chart-4)">4. engine report</div><div class="muted" style="margin-top:4px;">Reports structured result back to Engine; loop repeats.</div></div>
-          </div>
-        </div>
-
-        <div class="card stack-md">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-            <h2 class="card-title">Guard Policy (<code>strict</code> / <code>relaxed</code> / <code>off</code>) &amp; The 5 Fences</h2>
-            <span class="xs muted">First 4 are switchable per intent via plain request</span>
-          </div>
-          <div id="fences-grid" class="grid-5"></div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card stack-md">
-            <h2 class="card-title">All 6 Deterministic Sensors (<code>core/sensors/</code>)</h2>
-            <div id="sensors-list" class="stack-sm"></div>
-          </div>
-          <div class="stack-md">
-            <div class="card stack-md">
-              <h2 class="card-title">5 Built-in Utility Skills (<code>core/skills/</code>)</h2>
-              <div id="skills-list" class="stack-sm"></div>
-            </div>
-            <div class="card stack-md">
-              <h2 class="card-title">5 Optional Shipped MCP Servers (<code>.mcp.json</code>)</h2>
-              <div class="flex-wrap mono">
-                <span class="pill pill-c1">context7 (docs)</span>
-                <span class="pill pill-c2">aws-mcp</span>
-                <span class="pill pill-c3">aws-pricing</span>
-                <span class="pill pill-c4">aws-iac</span>
-                <span class="pill pill-c5">aws-serverless</span>
-              </div>
-              <div class="xs muted">Optional — if you lack credentials for an MCP server, it simply stays unavailable and never blocks a run.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card stack-md">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-            <h2 class="card-title">All 14 Shipped Agents (<code>core/agents/</code>)</h2>
-            <span class="xs muted">11 Domain Experts · 2 Read-Only Reviewers · 1 Adaptive Composer</span>
-          </div>
-          <div id="agents-grid" class="grid-3"></div>
-        </div>
-
-        <div class="grid-2 xs">
-          <div class="card stack-md">
-            <h2 class="card-title">All 17 Framework Hooks (<code>core/hooks/</code>)</h2>
-            <div class="sub-box"><div style="font-weight:600;color:var(--chart-1);margin-bottom:4px;">Safety &amp; Guard Hooks (6)</div><div class="muted mono">plan-approval-guard · state-transition-guard · review-freeze · reviewer-scope · record-human-turn · continue-workflow</div></div>
-            <div class="sub-box"><div style="font-weight:600;color:var(--chart-2);margin-bottom:4px;">Workflow Spine &amp; Checks (6)</div><div class="muted mono">write-audit-log · run-sensors · rebuild-stage-graph · deliver-stage-rules · validate-state · sync-workflow-state</div></div>
-            <div class="sub-box"><div style="font-weight:600;color:var(--chart-3);margin-bottom:4px;">Lifecycle &amp; Telemetry (5)</div><div class="muted mono">session-start · session-end · log-subagent · statusline · fold-usage (Claude token ledger)</div></div>
-          </div>
-
-          <div class="card stack-md">
-            <h2 class="card-title">132 Engine Tools (<code>core/tools/</code>) by Category</h2>
-            <div class="sub-box"><strong>Orchestration &amp; State:</strong> <span class="muted">orchestrate, directive, state, graph, jump, bolt, checkpoints</span></div>
-            <div class="sub-box"><strong>Guards &amp; Reviews:</strong> <span class="muted">guard-fences, guard-switch, review-brief, review-records, attest</span></div>
-            <div class="sub-box"><strong>Sensors &amp; Audit:</strong> <span class="muted">6 sensor runners, audit (134 event types), hook-trace, stage-diary</span></div>
-            <div class="sub-box"><strong>Plugins &amp; Setup:</strong> <span class="muted">plugin-build/create/validate/test, init, doctor, completions, gitignore</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 7: HARNESSES -->
-      <section id="sec-harnesses" class="section hidden">
-        <header class="sec-header">
-          <span class="pill pill-c5">Part 7 · Distribution &amp; Testing</span>
-          <h1>7 Harnesses, Plugins, Build Pipeline &amp; 4-Tier Tests</h1>
-          <p>How one neutral core ships cleanly to every major AI coding tool and platform (macOS, Linux, Windows/WSL).</p>
-        </header>
-
-        <div class="card stack-md">
-          <h2 class="card-title">Build &amp; Distribution Pipeline</h2>
-          <div class="grid-3 xs" style="align-items:center;">
-            <div class="stack-sm">
-              <div class="sub-box pill-c1"><strong><code>core/</code></strong> — Neutral methodology &amp; engine</div>
-              <div class="sub-box pill-c2"><strong><code>harness/&lt;name&gt;/</code></strong> — Thin per-tool manifests</div>
-              <div class="sub-box pill-c3"><strong><code>plugins/&lt;name&gt;/</code></strong> — Additive optional plugins</div>
-            </div>
-            <div class="sub-box" style="text-align:center;border:2px dashed var(--border);padding:16px;">
-              <div class="mono" style="font-weight:700;font-size:13.5px;">bun scripts/package.ts</div>
-              <div class="muted" style="margin:6px 0;">Replaces <code>{{HARNESS_DIR}}</code>, projects files, and checks byte-for-byte determinism (<code>--check</code>).</div>
-              <div class="divider-top mono">+ build-binaries.ts → native aidlc</div>
-            </div>
-            <div class="stack-sm">
-              <div class="sub-box"><strong>Native Channel (Recommended):</strong> Standalone <code>aidlc</code> binary + runtimes. No Bun/Node/Git needed!</div>
-              <div class="sub-box"><strong>Copy Channel:</strong> Manual <code>runtime/&lt;harness&gt;/</code> folder copy (requires Bun).</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card card-flush">
-          <div class="card-header"><h2 class="card-title">All 7 Supported AI Harnesses</h2></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Harness</th><th>Configure Flag</th><th>Trigger</th><th>How It Integrates</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Claude Code</strong></td><td class="mono">--harness claude</td><td class="mono">/aidlc</td><td class="muted"><code>.claude/</code> + <code>CLAUDE.md</code> + native hooks + token usage folding</td></tr>
-                <tr><td><strong>Kiro IDE / CLI v3</strong></td><td class="mono">--harness kiro</td><td class="mono">/aidlc</td><td class="muted"><code>.kiro/</code> steering docs, hooks, agent picker ("aidlc")</td></tr>
-                <tr><td><strong>Kiro CLI (V2)</strong></td><td class="mono">--harness kiro-v2</td><td class="mono">/aidlc</td><td class="muted"><code>.kiro/</code> CLI v2 agent resources &amp; hooks</td></tr>
-                <tr><td><strong>OpenAI Codex CLI</strong></td><td class="mono">--harness codex</td><td class="mono">$aidlc</td><td class="muted"><code>.agents/skills/</code> + custom emitter + trusted project hooks</td></tr>
-                <tr><td><strong>Cursor (IDE &amp; CLI)</strong></td><td class="mono">--harness cursor</td><td class="mono">/aidlc</td><td class="muted"><code>.cursor/</code> subagents, skills, phase <code>.mdc</code> rules &amp; <code>hooks.json</code></td></tr>
-                <tr><td><strong>opencode</strong></td><td class="mono">--harness opencode</td><td class="mono">/aidlc</td><td class="muted">Engine in <code>.aidlc/</code>, shell in <code>.opencode/</code>, <code>opencode.json</code> instructions</td></tr>
-                <tr><td><strong>GitHub Copilot</strong></td><td class="mono">--harness copilot</td><td class="mono">/aidlc</td><td class="muted">Engine in <code>.aidlc/</code>, merged <code>.github/</code> agents/hooks + <code>AGENTS.md</code></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="grid-2 xs">
-          <div class="card stack-sm">
-            <h2 class="card-title">4 Meanings of "Harness" in This Repo</h2>
-            <div class="sub-box"><strong>1. AI Agent Harness (Primary):</strong> The AI coding tool wrapping the LLM (Claude Code, Cursor, Kiro, etc.).</div>
-            <div class="sub-box"><strong>2. Harness Engineering:</strong> <code>docs/harness-engineering/</code> — shaping rules, stages &amp; sensors around the AI.</div>
-            <div class="sub-box"><strong>3. Source Folder:</strong> <code>harness/&lt;name&gt;/</code> — thin per-tool adapters.</div>
-            <div class="sub-box"><strong>4. Test Harness:</strong> <code>tests/harness/</code> — helper library driving the test suite.</div>
-          </div>
-
-          <div class="card stack-md">
-            <h2 class="card-title">4-Tier Automated Test Suite (~1,300 Files)</h2>
-            <div class="grid-2">
-              <div class="sub-box"><div class="mono" style="font-weight:700;font-size:14px;color:var(--chart-1)">15 Smoke</div><div class="muted">Fast sanity checks</div></div>
-              <div class="sub-box"><div class="mono" style="font-weight:700;font-size:14px;color:var(--chart-2)">920 Unit</div><div class="muted">Tools, hooks, parsers</div></div>
-              <div class="sub-box"><div class="mono" style="font-weight:700;font-size:14px;color:var(--chart-3)">270 Integration</div><div class="muted">Packaging &amp; plugins</div></div>
-              <div class="sub-box"><div class="mono" style="font-weight:700;font-size:14px;color:var(--chart-4)">91 E2E</div><div class="muted">Real harness runs</div></div>
-            </div>
-            <div class="muted">Run with <code>bun tests/run-tests.ts --ci</code> or <code>bun run check</code>.</div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <script src="assets/app.js?v=5"></script>
+    </div>
+  </main>
 </body>
 </html>

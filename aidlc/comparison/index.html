@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Total Comparison — All 10 AI-DLC &amp; Spec-Driven Frameworks</title>
+  <link rel="stylesheet" href="../shared/guide-styles.css?v=1" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="../" class="topbar-brand">← AI SDLC Visual Hub</a>
+      <div class="topbar-links">
+        <a href="./" class="topbar-link active">Total Comparison</a>
+        <a href="../evaluation/" class="topbar-link">Evaluation &amp; Recommender</a>
+      </div>
+    </div>
+    <div class="xs muted">10 Frameworks · Full Matrix · Head-to-Head · Quadrant Map</div>
+  </header>
+
+  <main class="main-wide section">
+    <header class="sec-header">
+      <span class="pill pill-primary">Total Comparison</span>
+      <h1>All 10 AI-Driven SDLC &amp; Spec-Driven Frameworks Compared</h1>
+      <p>Side-by-side comparison across core philosophy, workflow structure, agent support, ceremony, speed vs governance, greenfield vs brownfield, spec drift, human bottleneck, and main costs.</p>
+    </header>
+
+    <!-- 2D Positioning Quadrant + Head-to-Head Picker -->
+    <div class="grid-12">
+      <div class="col-8 card stack-md">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h2 class="card-title">Landscape Map: Speed &amp; Autonomy vs. Governance &amp; Rigor</h2>
+            <div class="xs muted">Click any dot on the chart to open that framework's deep-dive guide</div>
+          </div>
+          <span class="xs mono muted">10 Frameworks Plotted</span>
+        </div>
+        <div class="svg-wrap" style="max-height:none;min-height:320px;padding:8px;">
+          <svg id="quadrant-svg" viewBox="0 0 680 380" style="width:100%;height:auto;display:block;"></svg>
+        </div>
+      </div>
+
+      <div class="col-4 card stack-md">
+        <div>
+          <h2 class="card-title">Head-to-Head Picker</h2>
+          <div class="xs muted" style="margin-top:2px;">Toggle 2–4 frameworks below to compare them side by side:</div>
+        </div>
+        <div id="h2h-picker" class="flex-wrap"></div>
+        <div class="divider-top xs muted">
+          Want a personalized score based on your team's exact priorities?
+          <div style="margin-top:10px;">
+            <a href="../evaluation/" class="btn-primary">Open Fit Evaluator →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Head-to-Head Cards -->
+    <div id="h2h-cards" class="grid-3"></div>
+
+    <!-- Filter Bar -->
+    <div class="card" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span class="xs" style="font-weight:600;">Filter tables:</span>
+        <input id="tbl-filter" class="search-input" style="width:260px;" type="text" placeholder="Filter by keyword (e.g. brownfield, Claude, DDD)..." oninput="renderTables(this.value)" />
+      </div>
+      <div id="tbl-count" class="xs mono muted">Showing 10 of 10 frameworks</div>
+    </div>
+
+    <!-- Table 1: Architecture & Capabilities -->
+    <div class="card card-flush">
+      <div class="card-header">
+        <h2 class="card-title">1. Core Architecture, Workflow &amp; Tool Support Matrix</h2>
+        <span class="xs muted">Click any framework name to open its full visual guide</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Framework</th>
+              <th>Core Philosophy</th>
+              <th>Workflow Structure</th>
+              <th>Agent &amp; Tool Support</th>
+              <th>Ceremony</th>
+              <th>Best Use Case</th>
+            </tr>
+          </thead>
+          <tbody id="arch-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Table 2: Deep Trade-offs -->
+    <div class="card card-flush">
+      <div class="card-header">
+        <h2 class="card-title">2. Deep Engineering Trade-offs Matrix</h2>
+        <span class="xs muted">Speed vs Governance · Greenfield vs Brownfield · Spec Drift · Human Bottleneck · Main Weakness</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Framework</th>
+              <th>Speed vs. Governance</th>
+              <th>Greenfield vs. Brownfield</th>
+              <th>Spec Drift &amp; Maintenance</th>
+              <th>Human Bottleneck / Autonomy</th>
+              <th>Main Weakness / Cost</th>
+            </tr>
+          </thead>
+          <tbody id="trade-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Quick Decision Rules -->
+    <div class="card stack-md xs">
+      <h2 class="card-title">Quick Decision Trade-off Rules</h2>
+      <div class="grid-2">
+        <div class="sub-box"><strong>If human review is slowing you down:</strong> Move from AWS AI-DLC to <strong>OpenSpec</strong> (lightweight delta reviews), <strong>specs.md FIRE</strong> (0–2 adaptive gates), or <strong>Cursor pstack</strong> (automated verifier agents).</div>
+        <div class="sub-box"><strong>If specs go stale right after launch:</strong> Choose <strong>OpenSpec</strong> (merges deltas back into a living spec) or <strong>Tessl</strong> (binds specs directly to automated CI builds &amp; tests).</div>
+        <div class="sub-box"><strong>If you need enterprise compliance without 33 stages:</strong> Choose <strong>Anthropic AI-Native SDLC</strong> (separation of duties + Git <code>intent.md</code>) or <strong>GitHub Spec Kit</strong> (portable standard).</div>
+        <div class="sub-box"><strong>If you want TDD craft or IDE-native simplicity:</strong> Choose <strong>Superpowers</strong> (strict TDD, worktrees, fresh subagents) or <strong>Kiro Native Specs</strong> (3-file EARS specs built right into Kiro IDE).</div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../shared/frameworks-matrix.js?v=1"></script>
+  <script>
+    const selectedH2H = new Set(['aws', 'spec-kit', 'openspec']);
+
+    function renderQuadrant() {
+      const svg = document.getElementById('quadrant-svg');
+      const W = 680, H = 380, PAD = 48;
+      const plotW = W - PAD * 2, plotH = H - PAD * 2;
+      const toX = v => PAD + (v / 100) * plotW;
+      const toY = v => H - PAD - (v / 100) * plotH;
+
+      let out = `
+        <rect x="${PAD}" y="${PAD}" width="${plotW}" height="${plotH}" fill="var(--card)" stroke="var(--border)" rx="8"/>
+        <line x1="${toX(50)}" y1="${PAD}" x2="${toX(50)}" y2="${H - PAD}" stroke="var(--border)" stroke-dasharray="4 4"/>
+        <line x1="${PAD}" y1="${toY(50)}" x2="${W - PAD}" y2="${toY(50)}" stroke="var(--border)" stroke-dasharray="4 4"/>
+        <text x="${PAD + 10}" y="${PAD + 18}" fill="var(--muted-foreground)" font-size="11" font-weight="600">HIGH GOVERNANCE / FORMAL</text>
+        <text x="${W - PAD - 10}" y="${PAD + 18}" text-anchor="end" fill="var(--muted-foreground)" font-size="11" font-weight="600">AUTOMATED RIGOR</text>
+        <text x="${W - PAD - 10}" y="${H - PAD - 10}" text-anchor="end" fill="var(--muted-foreground)" font-size="11" font-weight="600">MAX SPEED &amp; AUTONOMY</text>
+        <text x="${W / 2}" y="${H - 14}" text-anchor="middle" fill="var(--foreground)" font-size="11.5" font-weight="600">Shipping Speed &amp; Autonomy →</text>
+        <text x="16" y="${H / 2}" text-anchor="middle" fill="var(--foreground)" font-size="11.5" font-weight="600" transform="rotate(-90 16 ${H / 2})">Governance &amp; Architectural Rigor →</text>
+      `;
+
+      FRAMEWORKS_MATRIX.forEach(f => {
+        const cx = toX(f.pos.x), cy = toY(f.pos.y);
+        const anchor = f.pos.x > 75 ? 'end' : 'start';
+        const dx = f.pos.x > 75 ? -10 : 10;
+        out += `
+          <a href="${f.href}">
+            <circle cx="${cx}" cy="${cy}" r="7" fill="${f.color}" stroke="#ffffff" stroke-width="2" style="cursor:pointer;"/>
+            <text x="${cx + dx}" y="${cy + 4}" text-anchor="${anchor}" fill="var(--foreground)" font-size="11" font-weight="600">${f.name}</text>
+          </a>
+        `;
+      });
+      svg.innerHTML = out;
+    }
+
+    function renderH2H() {
+      document.getElementById('h2h-picker').innerHTML = FRAMEWORKS_MATRIX.map(f => {
+        const on = selectedH2H.has(f.id);
+        return `<button onclick="toggleH2H('${f.id}')" class="child-chip" style="${on ? `border-color:${f.color};background:color-mix(in srgb, ${f.color} 12%, white);font-weight:600;` : ''}">${on ? '✓ ' : ''}${f.name}</button>`;
+      }).join('');
+
+      const list = FRAMEWORKS_MATRIX.filter(f => selectedH2H.has(f.id));
+      const box = document.getElementById('h2h-cards');
+      box.className = list.length <= 2 ? 'grid-2' : list.length === 4 ? 'grid-4' : 'grid-3';
+      box.innerHTML = list.map(f => `
+        <div class="card xs stack-sm" style="border-top:3px solid ${f.color};">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <a href="${f.href}" style="font-weight:700;font-size:14.5px;color:var(--foreground);">${f.name} →</a>
+            <span class="pill ${f.pill}">${f.ceremony}</span>
+          </div>
+          <div class="sub-box"><strong>Philosophy:</strong> ${f.philosophy}</div>
+          <div><strong>Speed vs Gov:</strong> <span class="muted">${f.speedVsGov}</span></div>
+          <div><strong>Green vs Brown:</strong> <span class="muted">${f.greenVsBrown}</span></div>
+          <div><strong>Spec Drift:</strong> <span class="muted">${f.specDrift}</span></div>
+          <div><strong>Main Cost:</strong> <span class="muted">${f.weakness}</span></div>
+        </div>
+      `).join('');
+    }
+
+    function toggleH2H(id) {
+      if (selectedH2H.has(id)) {
+        if (selectedH2H.size > 1) selectedH2H.delete(id);
+      } else {
+        if (selectedH2H.size >= 4) selectedH2H.delete(Array.from(selectedH2H)[0]);
+        selectedH2H.add(id);
+      }
+      renderH2H();
+    }
+
+    function renderTables(q = '') {
+      const query = q.trim().toLowerCase();
+      const rows = FRAMEWORKS_MATRIX.filter(f =>
+        !query || JSON.stringify(f).toLowerCase().includes(query)
+      );
+      document.getElementById('tbl-count').textContent = `Showing ${rows.length} of ${FRAMEWORKS_MATRIX.length} frameworks`;
+
+      document.getElementById('arch-tbody').innerHTML = rows.map(f => `
+        <tr>
+          <td><a href="${f.href}" style="font-weight:700;white-space:nowrap;">${f.name}</a><div class="muted" style="font-size:11px;">${f.org}</div></td>
+          <td>${f.philosophy}</td>
+          <td class="muted">${f.structure}</td>
+          <td class="muted">${f.tools}</td>
+          <td><span class="pill ${f.pill}">${f.ceremony}</span></td>
+          <td>${f.bestUseCase}</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('trade-tbody').innerHTML = rows.map(f => `
+        <tr>
+          <td><a href="${f.href}" style="font-weight:700;white-space:nowrap;">${f.name}</a></td>
+          <td>${f.speedVsGov}</td>
+          <td class="muted">${f.greenVsBrown}</td>
+          <td class="muted">${f.specDrift}</td>
+          <td class="muted">${f.bottleneck}</td>
+          <td>${f.weakness}</td>
+        </tr>
+      `).join('');
+    }
+
+    renderQuadrant();
+    renderH2H();
+    renderTables();
+  </script>
+</body>
+</html>
