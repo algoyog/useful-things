@@ -31,7 +31,7 @@ renderGuideApp({
     { title: 'Build', meta: 'Isolated Coder', desc: 'Claude Code / builder agent implements code strictly against the approved `intent.md` and design.' },
     { title: 'Test', meta: 'Independent Verification', desc: 'Separate testing/review agent (never the coder) and automated suites verify behavior and security.' },
     { title: 'Deploy', meta: 'Human Gate', desc: 'Role-separated human sign-off authorizes release with full Git-committed provenance.' },
-    { title: 'Maintain', meta: 'Continuous Audit', desc: 'Ongoing fixes and updates repeat the `intent.md` trail so production history stays auditable.' }
+    { title: 'Maintain', meta: '2σ / 3σ Control-Band Loop', desc: 'Production telemetry deviations (2σ/3σ) automatically generate a fresh `intent.md` to restart the auditable SDLC loop.' }
   ],
   artifacts: [
     ['intent.md', 'Human-readable statement of authorized intent committed directly into Git.', 'Product / Eng Lead'],
@@ -40,10 +40,10 @@ renderGuideApp({
     ['Git Provenance History', 'Immutable link tying every PR/commit back to approved `intent.md`.', 'Git / Audit Trail']
   ],
   commands: [
-    ['intent.md Commit', 'Anchor every feature or fix with an explicit Git-tracked intent document.'],
-    ['Claude Code Skills', 'Modular skill-based workflows enforcing stage rules and verification.'],
-    ['Separated Review', 'Invoke an independent review context that cannot be the same agent that wrote the code.'],
-    ['Human Sign-Off Gates', 'Explicit approval checkpoints for regulated compliance and production deploys.']
+    ['intent.md Commit', 'Anchor every feature or fix with an explicit Git-tracked intent document (Originator → PO → Engineer → Code Owner → Release Manager).'],
+    ['PreToolUse Hooks & REVIEW.md', 'Deterministic Claude Code hooks and REVIEW.md policies blocking unauthorized transitions or self-approval.'],
+    ['2σ / 3σ Control-Band Loop', 'Automated Maintain-phase telemetry triggers generating a fresh `intent.md` on production anomalies.'],
+    ['Separated Review', 'Invoke an independent review context that cannot be the same agent that wrote the code.']
   ],
   supportedTools: ['Claude Code (Primary)', 'Skill-Based Workflows', 'Git / Enterprise CI'],
   agentModel: 'Role-separated multi-step workflow: builder agent is strictly isolated from review/approval authority, with mandatory human accountability.',

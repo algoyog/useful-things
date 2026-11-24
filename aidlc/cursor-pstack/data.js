@@ -38,8 +38,10 @@ renderGuideApp({
   ],
   commands: [
     ['/swarm', 'Launch parallel worker agents to execute independent tasks concurrently.'],
+    ['/arena', 'Spawn multiple competitive candidate agents simultaneously and graft the best solution pieces together.'],
+    ['blast-radius', 'Run live code-execution impact & benchmark-checklist checks instead of static design docs.'],
     ['/tdd', 'Run disciplined test-driven development loops (red → green → refactor).'],
-    ['/code-review', 'Trigger automated multi-angle code review via separate verifier agents.']
+    ['/code-review', 'Trigger automated multi-angle code review via separate verifier agents (architect, poteto-agent, verifiers).']
   ],
   supportedTools: ['Cursor IDE (Primary)', 'Cursor Agent CLI'],
   agentModel: 'High-autonomy parallel agent swarms paired with separate automated verifier agents.',

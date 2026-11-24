@@ -136,8 +136,8 @@ const UNIQUE_CONCEPTS = [
   {
     id: 'uc-sep-duties',
     origin: 'anthropic-sdlc',
-    concept: 'Strict Separation of Duties (Coder Agent Cannot Approve Code)',
-    desc: 'Hard governance rule ensuring the agent/role that writes code can never approve it, backed by Git-committed `intent.md` audit trails.',
+    concept: 'Strict Separation of Duties, PreToolUse Hooks & 2σ/3σ Control-Band Loops',
+    desc: 'Hard governance chain (Originator → PO → Engineer → Code Owner → Release Manager) enforced via PreToolUse hooks & REVIEW.md, plus Maintain-phase telemetry deviations (2σ/3σ) auto-generating fresh intent.md.',
     responses: {
       'aws': ['compatible', 'Natively echoed by read-only adversarial reviewers (Product Lead, Arch Reviewer) & Human Presence fence.'],
       'spec-kit': ['partial', 'Human reviews spec/plan, but same agent typically implements and runs /speckit.converge.'],
@@ -154,8 +154,8 @@ const UNIQUE_CONCEPTS = [
   {
     id: 'uc-auto-verifiers',
     origin: 'cursor-pstack',
-    concept: 'Automated Verifier Agents Replacing Manual Phase Gates',
-    desc: 'Skips human sign-off checkpoints between stages; autonomous parallel `/swarm` workers are checked by automated verifier agents and `/tdd` loops.',
+    concept: 'Competitive Parallel Swarms (/arena), blast-radius & Automated Verifiers',
+    desc: 'Spawns multiple candidate agents simultaneously (/arena), grafts best pieces, and runs live blast-radius & automated verifier checks instead of manual phase gates.',
     responses: {
       'aws': ['incompatible', 'Conflicts with AWS AI-DLC Tenet #1/#4 & mandatory Plan Approval / Skeleton human gates (though autonomous mode reduces ordinary checkpoints).'],
       'spec-kit': ['incompatible', 'Conflicts with Spec Kit’s explicit human review of spec, plan, and tasks before coding.'],
@@ -276,8 +276,8 @@ const ORG_MATRIX = [
     pill: 'pill-c5',
     teamSize: '2–20 (Agile Product Squads)',
     teamOrg: 'Mirrors a classic Agile/Scrum product studio (Product, UX, Architecture, Delivery, Engineering, QA) simulated via AI personas.',
-    roles: 'Human: Product Owner / Tech Lead steering personas. AI: 21+ distinct role personas (Analyst, PM, UX, Architect, Scrum Master, Dev, QA).',
-    roleHandshakes: 'Explicit persona-to-persona artifact handoffs: Analyst → PM (`PRD.md`) → Architect (`architecture.md`) → Scrum Master (shards into `stories/`) → Dev → QA.',
+    roles: 'Human: Product Owner / Tech Lead steering personas. AI: 21+ named role personas (Mary the Analyst, John the PM, Winston the Architect, Amelia the Dev, Scrum Master, QA).',
+    roleHandshakes: 'Ticket-tree & persona handoffs (`Initiative → Epic → Story`): Mary → John (`PRD.md`) → Winston (`architecture.md`) → Scrum Master (shards into `stories/`) → Amelia → QA.',
     phaseHandshakes: 'Document-gated Agile transitions (adversarial design review before story sharding; QA persona sign-off per story; Quick Track collapses handoffs for small fixes).'
   },
   {
@@ -298,9 +298,9 @@ const ORG_MATRIX = [
     pill: 'pill-c6',
     teamSize: '5–100+ (Regulated Enterprise Engineering Orgs)',
     teamOrg: 'Governance-structured orgs with clear compliance boundaries and explicit separation between authoring and approving roles.',
-    roles: 'Human: Accountable Product/Eng Owners + Independent Reviewers/Approvers. AI: Isolated Builder agent (Claude Code) + separate Verifier/Reviewer agent.',
-    roleHandshakes: 'Hard Separation of Duties: coder agent can NEVER approve its own code; independent reviewer + accountable human must sign off before progression.',
-    phaseHandshakes: 'Git-committed `intent.md` anchors all 6 stages (`Plan → Design → Build → Test → Deploy → Maintain`) with immutable version-controlled sign-off provenance.'
+    roles: 'Human: 5-role governance chain — Originator (`intent.md`), Product Owner (`spec.md`), Engineer (`plan.md`), Code Owner (PR), Release Manager (deploy). AI: Isolated Claude Code builder + separate verifier.',
+    roleHandshakes: 'Hard Separation of Duties enforced via `PreToolUse` hooks & `REVIEW.md`: coder agent can NEVER approve its own code; each role signs off asynchronously in Git.',
+    phaseHandshakes: 'Git-committed `intent.md → spec.md → plan.md` across 6 stages (`Plan → Maintain`); in Maintain, 2σ/3σ telemetry deviations auto-generate a fresh `intent.md` to restart the loop.'
   },
   {
     id: 'cursor-pstack',
@@ -309,8 +309,8 @@ const ORG_MATRIX = [
     pill: 'pill-c3',
     teamSize: '1–10 (Senior / Staff High-Velocity Engineers)',
     teamOrg: 'Autonomous senior-engineer pods optimizing for raw shipping throughput rather than formal process roles.',
-    roles: 'Human: Senior Engineer directing playbooks & merging final PRs. AI: Parallel `/swarm` worker agents + automated `/code-review` verifier agents.',
-    roleHandshakes: 'Agent-to-agent automated handshakes: swarm workers produce diffs & tests → automated verifier agents critique & verify → human reviews final merged PR.',
+    roles: 'Human: Senior Engineer (Developer-as-Tech-Lead) directing playbooks & merging PRs. AI: Parallel `/swarm` & `/arena` candidate workers + `architect`, `poteto-agent`, and `blast-radius` verifier agents.',
+    roleHandshakes: 'Agent-to-agent automated verification handshakes: candidate workers produce diffs → `blast-radius` & benchmark-checklist verifiers critique & score → human reviews final PR.',
     phaseHandshakes: 'No manual phase gates! Playbooks (`/tdd`, `/swarm`, `/code-review`) run on demand; passing tests and verifier sign-off act as the handshake.'
   },
   {
@@ -320,7 +320,7 @@ const ORG_MATRIX = [
     pill: 'pill-c4',
     teamSize: '3–30 (Platform, Modular & CI-Mature Teams)',
     teamOrg: 'Component-owned modular teams with strong platform/CI-CD engineering culture.',
-    roles: 'Human: Spec Architects & Test/Eval Engineers (heavy upfront design). AI: Continuous code-generation agents bound to CI/CD.',
+    roles: 'Human: Spec Authors (Domain/Product Engineers writing behavioral specs) vs. Registry Maintainers (Platform Engineers publishing & evaluating agent skills/context). AI: CI-bound code generators.',
     roleHandshakes: 'Contract-based handshakes: teams agree on modular living specs and automated eval suites; AI regenerates implementations behind the contract.',
     phaseHandshakes: 'Automated CI/CD handshake: spec edits trigger regeneration + deterministic test/eval pipelines; green CI = synchronized phase completion.'
   },
