@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
-  <div class="layout">
+  <div id="app-layout" class="layout">
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div>
         <div class="brand-row">
           <span class="brand-title">AI-DLC Visual Guide</span>
+          <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Collapse sidebar" aria-label="Collapse sidebar">«</button>
         </div>
         <div class="brand-sub">First Principles · Paper · Repo v2.11.4</div>
       </div>
@@ -52,6 +53,9 @@
 
     <!-- MAIN CONTENT -->
     <main class="main">
+      <div id="reopen-sidebar-bar" class="reopen-bar hidden">
+        <button class="reopen-btn" onclick="toggleSidebar()">☰ Show Menu</button>
+      </div>
 
       <!-- SECTION 1: FIRST PRINCIPLES -->
       <section id="sec-first-principles" class="section">

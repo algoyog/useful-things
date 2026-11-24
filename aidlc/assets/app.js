@@ -945,6 +945,13 @@ function clearSearch() {
   handleSearch('');
 }
 
+function toggleSidebar() {
+  const layout = document.getElementById('app-layout');
+  const reopenBar = document.getElementById('reopen-sidebar-bar');
+  const collapsed = layout.classList.toggle('sidebar-collapsed');
+  reopenBar.classList.toggle('hidden', !collapsed);
+}
+
 // =========================================================================
 // BOOTSTRAP STATIC GRIDS
 // =========================================================================
