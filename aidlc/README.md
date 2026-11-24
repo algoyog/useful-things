@@ -1,6 +1,6 @@
 # AI-DLC Visual Guide & Reference Pack
 
-Open [`index.html`](index.html) in any web browser (zero external dependencies; works completely offline with Dark/Light mode and live search).
+Open [`index.html`](index.html) in any web browser (zero external dependencies; works completely offline with live search).
 
 ## Included Files
 

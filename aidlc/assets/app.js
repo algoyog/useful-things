@@ -381,13 +381,6 @@ function clearSearch() {
   handleSearch('');
 }
 
-function toggleTheme() {
-  const root = document.documentElement;
-  const isLight = root.getAttribute('data-theme') === 'light';
-  root.setAttribute('data-theme', isLight ? 'dark' : 'light');
-  document.getElementById('theme-toggle').textContent = isLight ? '☀ Light' : '☾ Dark';
-}
-
 // =========================================================================
 // BOOTSTRAP STATIC GRIDS
 // =========================================================================

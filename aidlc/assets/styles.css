@@ -1,24 +1,4 @@
 :root {
-  --background: #0f1117;
-  --sidebar: #141720;
-  --card: #181c27;
-  --content: #12151e;
-  --border: #262c3d;
-  --foreground: #e8ecf4;
-  --muted-foreground: #94a0b8;
-  --placeholder: #64708a;
-  --primary: #6366f1;
-  --primary-foreground: #ffffff;
-  --chart-1: #60a5fa;
-  --chart-2: #34d399;
-  --chart-3: #f472b6;
-  --chart-4: #fbbf24;
-  --chart-5: #a78bfa;
-  --chart-6: #fb923c;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-}
-
-:root[data-theme="light"] {
   --background: #f8fafc;
   --sidebar: #f1f5f9;
   --card: #ffffff;
@@ -95,17 +75,6 @@ code {
   color: var(--muted-foreground);
   margin-top: 2px;
 }
-
-.theme-btn {
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  border-radius: 8px;
-  padding: 5px 9px;
-  font-size: 12px;
-  cursor: pointer;
-}
-.theme-btn:hover { border-color: var(--primary); }
 
 /* Search */
 .search-wrap { position: relative; }
