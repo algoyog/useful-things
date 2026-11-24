@@ -193,37 +193,56 @@
       <!-- SECTION 2: MIND MAP -->
       <section id="sec-mindmap" class="section hidden">
         <header class="sec-header">
-          <span class="pill pill-c1">Part 2 · Visual Mind Map</span>
-          <h1>Master Mind Map — Theory to Repository</h1>
-          <p>Click any node to inspect its role, plain-English analogy, and key files.</p>
+          <span class="pill pill-c1">Part 2 · Deep Interactive Mind Map</span>
+          <h1>Master Mind Map — Click Any Node to Drill Down to Every Concept</h1>
+          <p>Click any node with a <strong>+N</strong> badge to expand its children all the way down to the last leaf (all 10 Principles, 33 Stages, 14 Agents, 11 Scopes, 6 Sensors, 5 Fences, 7 Harnesses, and more) and read its full explanation on the right.</p>
         </header>
 
         <div class="grid-12">
           <div class="col-8 card card-flush">
             <div class="card-header xs">
-              <span class="muted">Interactive SVG Map</span>
-              <button class="btn-sm" onclick="selectNode('root')">Reset</button>
+              <span class="muted">Click node to inspect &amp; expand · Click <strong>−</strong> to collapse</span>
+              <div class="mm-toolbar">
+                <button class="btn-sm" onclick="zoomMindMap(-0.15)">− Zoom</button>
+                <span id="mm-zoom-label" class="mono muted">100%</span>
+                <button class="btn-sm" onclick="zoomMindMap(0.15)">+ Zoom</button>
+                <button class="btn-sm" onclick="expandAllMindMap()">Expand All</button>
+                <button class="btn-sm" onclick="collapseMindMap()">Reset</button>
+              </div>
             </div>
-            <div class="svg-wrap">
-              <svg id="mindmap-svg" viewBox="0 0 940 580" style="width:100%;height:auto;min-width:680px;display:block;user-select:none;">
+            <div id="mm-scroll" class="svg-wrap">
+              <svg id="mindmap-svg" style="display:block;user-select:none;">
                 <g id="mm-links"></g>
                 <g id="mm-nodes"></g>
               </svg>
             </div>
           </div>
 
-          <aside class="col-4 card stack-md">
+          <aside class="col-4 card stack-md insp-sticky">
+            <div id="insp-crumbs" class="crumb-bar"></div>
             <div>
               <span id="insp-badge" class="pill pill-primary">Overview</span>
               <h2 id="insp-title" class="card-title" style="margin-top:8px;font-size:16px;">AI-DLC</h2>
             </div>
             <div id="insp-summary" class="xs"></div>
-            <div class="sub-box xs stack-sm" style="gap:4px;">
+
+            <div id="insp-why-box" class="sub-box xs stack-sm" style="gap:4px;">
+              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">First-Principles "Why"</div>
+              <div id="insp-why"></div>
+            </div>
+
+            <div id="insp-analogy-box" class="sub-box xs stack-sm" style="gap:4px;">
               <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">Simple Analogy</div>
               <div id="insp-analogy"></div>
             </div>
-            <div class="stack-sm xs">
-              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">What Lives Here</div>
+
+            <div id="insp-children-box" class="stack-sm xs">
+              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">Drill Down Into Children</div>
+              <div id="insp-children" class="flex-wrap"></div>
+            </div>
+
+            <div id="insp-items-box" class="stack-sm xs">
+              <div class="muted" style="font-weight:600;text-transform:uppercase;font-size:11px;">Key Facts</div>
               <ul id="insp-items" style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;"></ul>
             </div>
           </aside>

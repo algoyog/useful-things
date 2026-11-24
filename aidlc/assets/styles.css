@@ -289,9 +289,59 @@ td {
 tr:last-child td { border-bottom: none; }
 
 /* Mind Map SVG */
-.svg-wrap { overflow-x: auto; background: var(--content); padding: 10px; }
+.svg-wrap {
+  overflow: auto;
+  background: var(--content);
+  padding: 14px;
+  max-height: 74vh;
+  min-height: 460px;
+}
 .node-group { cursor: pointer; }
-.node-group:hover .node-rect { filter: brightness(1.1); }
+.node-group:hover .node-rect { filter: brightness(0.97); }
+.mm-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.crumb-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--muted-foreground);
+}
+.crumb-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--primary);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.crumb-btn:hover { text-decoration: underline; }
+.child-chip {
+  padding: 5px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--content);
+  color: var(--foreground);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.14s ease, background-color 0.14s ease;
+}
+.child-chip:hover {
+  border-color: var(--primary);
+  background: var(--card);
+}
+.insp-sticky {
+  position: sticky;
+  top: 20px;
+  max-height: 82vh;
+  overflow-y: auto;
+}
 
 /* Phase buttons */
 .phase-btn {
