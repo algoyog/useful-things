@@ -4,7 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Total Comparison — All 10 AI-DLC &amp; Spec-Driven Frameworks</title>
-  <link rel="stylesheet" href="../shared/guide-styles.css?v=1" />
+  <link rel="stylesheet" href="../shared/guide-styles.css?v=2" />
+  <style>
+    .subtabs {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 6px; border-radius: 10px; box-shadow: var(--shadow);
+    }
+    .subtab-btn {
+      padding: 8px 14px; border-radius: 7px; border: none;
+      background: transparent; color: var(--muted-foreground);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .subtab-btn:hover { background: var(--sidebar); color: var(--foreground); }
+    .subtab-btn.active { background: var(--primary); color: var(--primary-foreground); }
+
+    .compat-badge {
+      display: inline-block; padding: 2px 7px; border-radius: 999px;
+      font-size: 11px; font-weight: 600; font-family: ui-monospace, monospace;
+      white-space: nowrap; border: 1px solid transparent; cursor: pointer;
+    }
+    .c-native { background: #e0e7ff; color: #3730a3; border-color: #a5b4fc; }
+    .c-compatible { background: #dcfce7; color: #166534; border-color: #86efac; }
+    .c-partial { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+    .c-neutral { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+    .c-incompatible { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+
+    .matrix-row { cursor: pointer; transition: background-color 0.12s ease; }
+    .matrix-row:hover { background: #f8fafc; }
+    .matrix-row.active-row { background: #eef2ff; }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -15,118 +44,261 @@
         <a href="../evaluation/" class="topbar-link">Evaluation &amp; Recommender</a>
       </div>
     </div>
-    <div class="xs muted">10 Frameworks · Full Matrix · Head-to-Head · Quadrant Map</div>
+    <div class="xs muted">10 Frameworks · Trade-offs · Unique Concepts · Roles &amp; Handshakes</div>
   </header>
 
   <main class="main-wide section">
     <header class="sec-header">
-      <span class="pill pill-primary">Total Comparison</span>
+      <span class="pill pill-primary">Total Comparison Suite</span>
       <h1>All 10 AI-Driven SDLC &amp; Spec-Driven Frameworks Compared</h1>
-      <p>Side-by-side comparison across core philosophy, workflow structure, agent support, ceremony, speed vs governance, greenfield vs brownfield, spec drift, human bottleneck, and main costs.</p>
+      <p>Switch between the <strong>Overview &amp; Trade-offs Matrix</strong>, the <strong>Unique Concepts Cross-Compatibility Matrix</strong>, and the <strong>Roles, Team Org &amp; Handshakes Breakdown</strong>.</p>
     </header>
 
-    <!-- 2D Positioning Quadrant + Head-to-Head Picker -->
-    <div class="grid-12">
-      <div class="col-8 card stack-md">
+    <!-- 3 Sub-Tabs -->
+    <nav class="subtabs">
+      <button id="stab-overview" class="subtab-btn active" onclick="switchCompTab('overview')">1. Overview, Quadrant &amp; Trade-offs</button>
+      <button id="stab-concepts" class="subtab-btn" onclick="switchCompTab('concepts')">2. Unique Concepts &amp; Compatibility</button>
+      <button id="stab-org" class="subtab-btn" onclick="switchCompTab('org')">3. Roles, Team Org, Size &amp; Handshakes</button>
+      <button id="stab-swot" class="subtab-btn" onclick="switchCompTab('swot')">4. SWOT Analysis (All 10)</button>
+    </nav>
+
+    <!-- =============================================================== -->
+    <!-- TAB 1: OVERVIEW, QUADRANT & TRADE-OFFS                          -->
+    <!-- =============================================================== -->
+    <section id="ctab-overview" class="section">
+      <div class="grid-12">
+        <div class="col-8 card stack-md">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+            <div>
+              <h2 class="card-title">Landscape Map: Speed &amp; Autonomy vs. Governance &amp; Rigor</h2>
+              <div class="xs muted">Click any dot on the chart to open that framework's deep-dive guide</div>
+            </div>
+            <span class="xs mono muted">10 Frameworks Plotted</span>
+          </div>
+          <div class="svg-wrap" style="max-height:none;min-height:320px;padding:8px;">
+            <svg id="quadrant-svg" viewBox="0 0 680 380" style="width:100%;height:auto;display:block;"></svg>
+          </div>
+        </div>
+
+        <div class="col-4 card stack-md">
+          <div>
+            <h2 class="card-title">Head-to-Head Picker</h2>
+            <div class="xs muted" style="margin-top:2px;">Toggle 2–4 frameworks below to compare them side by side:</div>
+          </div>
+          <div id="h2h-picker" class="flex-wrap"></div>
+          <div class="divider-top xs muted">
+            Want a personalized score based on your team's exact priorities?
+            <div style="margin-top:10px;">
+              <a href="../evaluation/" class="btn-primary">Open Fit Evaluator →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="h2h-cards" class="grid-3"></div>
+
+      <div class="card" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="xs" style="font-weight:600;">Filter tables:</span>
+          <input id="tbl-filter" class="search-input" style="width:260px;" type="text" placeholder="Filter by keyword (e.g. brownfield, Claude, DDD)..." oninput="renderTables(this.value)" />
+        </div>
+        <div id="tbl-count" class="xs mono muted">Showing 10 of 10 frameworks</div>
+      </div>
+
+      <div class="card card-flush">
+        <div class="card-header">
+          <h2 class="card-title">1. Core Architecture, Workflow &amp; Tool Support Matrix</h2>
+          <span class="xs muted">Click any framework name to open its full visual guide</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Framework</th>
+                <th>Core Philosophy</th>
+                <th>Workflow Structure</th>
+                <th>Agent &amp; Tool Support</th>
+                <th>Ceremony</th>
+                <th>Best Use Case</th>
+              </tr>
+            </thead>
+            <tbody id="arch-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card card-flush">
+        <div class="card-header">
+          <h2 class="card-title">2. Deep Engineering Trade-offs Matrix</h2>
+          <span class="xs muted">Speed vs Governance · Greenfield vs Brownfield · Spec Drift · Human Bottleneck · Main Weakness</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Framework</th>
+                <th>Speed vs. Governance</th>
+                <th>Greenfield vs. Brownfield</th>
+                <th>Spec Drift &amp; Maintenance</th>
+                <th>Human Bottleneck / Autonomy</th>
+                <th>Main Weakness / Cost</th>
+              </tr>
+            </thead>
+            <tbody id="trade-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- TAB 2: UNIQUE CONCEPTS & CROSS-COMPATIBILITY MATRIX             -->
+    <!-- =============================================================== -->
+    <section id="ctab-concepts" class="section hidden">
+      <div class="card stack-sm xs">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <div>
+            <h2 class="card-title">Unique Concepts &amp; How Every Other Framework Responds</h2>
+            <div class="muted">Click any concept row below to inspect the exact <strong>WHY</strong> (Compatible, Partial/Different, Neutral, or Not Compatible) across all 10 frameworks.</div>
+          </div>
+          <div class="flex-wrap">
+            <span class="compat-badge c-native">Native</span>
+            <span class="compat-badge c-compatible">Compatible</span>
+            <span class="compat-badge c-partial">Partial / Different</span>
+            <span class="compat-badge c-neutral">Neutral</span>
+            <span class="compat-badge c-incompatible">Not Compatible</span>
+          </div>
+        </div>
+        <div id="uc-origin-filter" class="flex-wrap" style="padding-top:6px;"></div>
+      </div>
+
+      <!-- Selected Concept Detailed Response Inspector -->
+      <div id="uc-inspector" class="card stack-md" style="border-left:4px solid var(--primary);"></div>
+
+      <!-- Full Cross-Compatibility Grid Table -->
+      <div class="card card-flush">
+        <div class="card-header">
+          <h2 class="card-title">Cross-Framework Compatibility Matrix (12 Signature Concepts × 10 Frameworks)</h2>
+          <span class="xs muted">Click any row or badge to see the full explanation above</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="min-width:210px;">Unique Concept (Origin)</th>
+                <th>AWS AI-DLC</th>
+                <th>Spec Kit</th>
+                <th>BMAD</th>
+                <th>OpenSpec</th>
+                <th>Anthropic</th>
+                <th>pstack</th>
+                <th>Tessl</th>
+                <th>specs.md</th>
+                <th>Kiro Specs</th>
+                <th>Superpowers</th>
+              </tr>
+            </thead>
+            <tbody id="uc-matrix-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- TAB 3: ROLES, TEAM ORG, TEAM SIZE & HANDSHAKES                  -->
+    <!-- =============================================================== -->
+    <section id="ctab-org" class="section hidden">
+      <!-- 4 Organizational Handshake Archetypes -->
+      <div class="card stack-md">
+        <div>
+          <h2 class="card-title">4 Organizational &amp; Handshake Archetypes Across the 10 Frameworks</h2>
+          <div class="xs muted">How teams organize humans + AI and pass work across roles and lifecycle phases:</div>
+        </div>
+        <div class="grid-4 xs">
+          <div class="sub-box stack-sm" style="border-top:3px solid var(--primary);">
+            <div style="font-weight:700;">1. Formal Mob &amp; Guarded Gates</div>
+            <div class="muted"><strong>AWS AI-DLC · Anthropic SDLC</strong><br/>Streamlined PO + Devs + strict role separation; cryptographic/Git sign-offs govern phase handshakes.</div>
+          </div>
+          <div class="sub-box stack-sm" style="border-top:3px solid var(--chart-5);">
+            <div style="font-weight:700;">2. Simulated Agile Studio</div>
+            <div class="muted"><strong>BMAD Method</strong><br/>Mirrors classic Scrum/Agile roles via 21+ AI personas passing sharded PRDs, Architecture, and Story files.</div>
+          </div>
+          <div class="sub-box stack-sm" style="border-top:3px solid var(--chart-3);">
+            <div style="font-weight:700;">3. Automated Verifier &amp; CI Loops</div>
+            <div class="muted"><strong>Cursor pstack · Tessl · Superpowers</strong><br/>Minimal manual phase gates; separate verifier subagents, TDD, or CI evals enforce handshakes automatically.</div>
+          </div>
+          <div class="sub-box stack-sm" style="border-top:3px solid var(--chart-2);">
+            <div style="font-weight:700;">4. Flat Git &amp; IDE Spec Teams</div>
+            <div class="muted"><strong>Spec Kit · OpenSpec · specs.md · Kiro Specs</strong><br/>No org restructuring; developers share lightweight Markdown specs/deltas through normal Git PRs &amp; IDEs.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter -->
+      <div class="card" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="xs" style="font-weight:600;">Filter org &amp; handshake matrix:</span>
+          <input id="org-filter" class="search-input" style="width:280px;" type="text" placeholder="Filter (e.g. solo, enterprise, Mob, PR, reviewer)..." oninput="renderOrgTable(this.value)" />
+        </div>
+        <div id="org-count" class="xs mono muted">Showing 10 of 10 frameworks</div>
+      </div>
+
+      <!-- Full 10-Framework Roles, Team Org, Team Size & Handshakes Table -->
+      <div class="card card-flush">
+        <div class="card-header">
+          <h2 class="card-title">Roles, Team Organization, Team Size &amp; Role/Phase Handshakes (All 10 Frameworks)</h2>
+          <span class="xs muted">Click any framework to open its full guide</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="min-width:140px;">Framework</th>
+                <th style="min-width:140px;">Ideal Team Size</th>
+                <th style="min-width:180px;">Team Organization &amp; Silos</th>
+                <th style="min-width:200px;">Human &amp; AI Roles</th>
+                <th style="min-width:220px;">Handshakes Between Roles</th>
+                <th style="min-width:220px;">Handshakes Between Phases</th>
+              </tr>
+            </thead>
+            <tbody id="org-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- TAB 4: SWOT ANALYSIS (ALL 10 FRAMEWORKS)                        -->
+    <!-- =============================================================== -->
+    <section id="ctab-swot" class="section hidden">
+      <div class="card stack-sm xs">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
           <div>
-            <h2 class="card-title">Landscape Map: Speed &amp; Autonomy vs. Governance &amp; Rigor</h2>
-            <div class="xs muted">Click any dot on the chart to open that framework's deep-dive guide</div>
+            <h2 class="card-title">SWOT Analysis — All 10 AI-DLC &amp; Spec-Driven Frameworks</h2>
+            <div class="muted">Strengths, Weaknesses, Opportunities, and Threats side by side. Filter to focus on specific frameworks:</div>
           </div>
-          <span class="xs mono muted">10 Frameworks Plotted</span>
+          <button class="btn-sm" onclick="swotFilter='all';renderSwot();">Show All 10</button>
         </div>
-        <div class="svg-wrap" style="max-height:none;min-height:320px;padding:8px;">
-          <svg id="quadrant-svg" viewBox="0 0 680 380" style="width:100%;height:auto;display:block;"></svg>
-        </div>
+        <div id="swot-filter-bar" class="flex-wrap" style="padding-top:4px;"></div>
       </div>
-
-      <div class="col-4 card stack-md">
-        <div>
-          <h2 class="card-title">Head-to-Head Picker</h2>
-          <div class="xs muted" style="margin-top:2px;">Toggle 2–4 frameworks below to compare them side by side:</div>
-        </div>
-        <div id="h2h-picker" class="flex-wrap"></div>
-        <div class="divider-top xs muted">
-          Want a personalized score based on your team's exact priorities?
-          <div style="margin-top:10px;">
-            <a href="../evaluation/" class="btn-primary">Open Fit Evaluator →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Head-to-Head Cards -->
-    <div id="h2h-cards" class="grid-3"></div>
-
-    <!-- Filter Bar -->
-    <div class="card" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="xs" style="font-weight:600;">Filter tables:</span>
-        <input id="tbl-filter" class="search-input" style="width:260px;" type="text" placeholder="Filter by keyword (e.g. brownfield, Claude, DDD)..." oninput="renderTables(this.value)" />
-      </div>
-      <div id="tbl-count" class="xs mono muted">Showing 10 of 10 frameworks</div>
-    </div>
-
-    <!-- Table 1: Architecture & Capabilities -->
-    <div class="card card-flush">
-      <div class="card-header">
-        <h2 class="card-title">1. Core Architecture, Workflow &amp; Tool Support Matrix</h2>
-        <span class="xs muted">Click any framework name to open its full visual guide</span>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Framework</th>
-              <th>Core Philosophy</th>
-              <th>Workflow Structure</th>
-              <th>Agent &amp; Tool Support</th>
-              <th>Ceremony</th>
-              <th>Best Use Case</th>
-            </tr>
-          </thead>
-          <tbody id="arch-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Table 2: Deep Trade-offs -->
-    <div class="card card-flush">
-      <div class="card-header">
-        <h2 class="card-title">2. Deep Engineering Trade-offs Matrix</h2>
-        <span class="xs muted">Speed vs Governance · Greenfield vs Brownfield · Spec Drift · Human Bottleneck · Main Weakness</span>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Framework</th>
-              <th>Speed vs. Governance</th>
-              <th>Greenfield vs. Brownfield</th>
-              <th>Spec Drift &amp; Maintenance</th>
-              <th>Human Bottleneck / Autonomy</th>
-              <th>Main Weakness / Cost</th>
-            </tr>
-          </thead>
-          <tbody id="trade-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Quick Decision Rules -->
-    <div class="card stack-md xs">
-      <h2 class="card-title">Quick Decision Trade-off Rules</h2>
-      <div class="grid-2">
-        <div class="sub-box"><strong>If human review is slowing you down:</strong> Move from AWS AI-DLC to <strong>OpenSpec</strong> (lightweight delta reviews), <strong>specs.md FIRE</strong> (0–2 adaptive gates), or <strong>Cursor pstack</strong> (automated verifier agents).</div>
-        <div class="sub-box"><strong>If specs go stale right after launch:</strong> Choose <strong>OpenSpec</strong> (merges deltas back into a living spec) or <strong>Tessl</strong> (binds specs directly to automated CI builds &amp; tests).</div>
-        <div class="sub-box"><strong>If you need enterprise compliance without 33 stages:</strong> Choose <strong>Anthropic AI-Native SDLC</strong> (separation of duties + Git <code>intent.md</code>) or <strong>GitHub Spec Kit</strong> (portable standard).</div>
-        <div class="sub-box"><strong>If you want TDD craft or IDE-native simplicity:</strong> Choose <strong>Superpowers</strong> (strict TDD, worktrees, fresh subagents) or <strong>Kiro Native Specs</strong> (3-file EARS specs built right into Kiro IDE).</div>
-      </div>
-    </div>
+      <div id="swot-cards-grid" class="grid-2"></div>
+    </section>
   </main>
 
-  <script src="../shared/frameworks-matrix.js?v=1"></script>
+  <script src="../shared/frameworks-matrix.js?v=3"></script>
+  <script src="../shared/comparison-deep.js?v=3"></script>
   <script>
+    // ---------- SUB-TAB SWITCHING ----------
+    const CTABS = ['overview', 'concepts', 'org', 'swot'];
+    function switchCompTab(tab) {
+      CTABS.forEach(t => {
+        document.getElementById(`ctab-${t}`).classList.toggle('hidden', t !== tab);
+        document.getElementById(`stab-${t}`).classList.toggle('active', t === tab);
+      });
+      if (location.hash !== '#' + tab) history.replaceState(null, '', '#' + tab);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---------- TAB 1: OVERVIEW, QUADRANT & HEAD-TO-HEAD ----------
     const selectedH2H = new Set(['aws', 'spec-kit', 'openspec']);
 
     function renderQuadrant() {
@@ -197,9 +369,7 @@
 
     function renderTables(q = '') {
       const query = q.trim().toLowerCase();
-      const rows = FRAMEWORKS_MATRIX.filter(f =>
-        !query || JSON.stringify(f).toLowerCase().includes(query)
-      );
+      const rows = FRAMEWORKS_MATRIX.filter(f => !query || JSON.stringify(f).toLowerCase().includes(query));
       document.getElementById('tbl-count').textContent = `Showing ${rows.length} of ${FRAMEWORKS_MATRIX.length} frameworks`;
 
       document.getElementById('arch-tbody').innerHTML = rows.map(f => `
@@ -225,9 +395,146 @@
       `).join('');
     }
 
+    // ---------- TAB 2: UNIQUE CONCEPTS & COMPATIBILITY ----------
+    const FW_KEYS = ['aws', 'spec-kit', 'bmad', 'openspec', 'anthropic-sdlc', 'cursor-pstack', 'tessl', 'specs-md', 'kiro-specs', 'superpowers'];
+    const STATUS_LABEL = {
+      native: 'Native',
+      compatible: 'Compatible',
+      partial: 'Partial',
+      neutral: 'Neutral',
+      incompatible: 'Not Compat.'
+    };
+    let activeOrigin = 'all';
+    let selectedConceptId = UNIQUE_CONCEPTS[0].id;
+
+    function renderConceptFilters() {
+      const origins = [['all', 'All Origins (12)'], ...FW_KEYS.map(k => [k, FW_SHORT[k]])];
+      document.getElementById('uc-origin-filter').innerHTML = origins.map(([k, lbl]) => `
+        <button onclick="activeOrigin='${k}';renderConceptMatrix()" class="child-chip" style="${activeOrigin === k ? 'border-color:var(--primary);background:#eef2ff;font-weight:600;color:var(--primary);' : ''}">${lbl}</button>
+      `).join('');
+    }
+
+    function selectConcept(id) {
+      selectedConceptId = id;
+      const c = UNIQUE_CONCEPTS.find(x => x.id === id) || UNIQUE_CONCEPTS[0];
+      const insp = document.getElementById('uc-inspector');
+      insp.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+          <div>
+            <span class="compat-badge c-native">Origin: ${FW_SHORT[c.origin]}</span>
+            <h2 class="card-title" style="font-size:17px;margin-top:6px;">${c.concept}</h2>
+          </div>
+          <span class="xs muted">How all 10 frameworks respond below</span>
+        </div>
+        <div class="xs muted">${c.desc}</div>
+        <div class="grid-2 xs">
+          ${FW_KEYS.map(k => {
+            const [st, why] = c.responses[k];
+            return `
+              <div class="sub-box" style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+                  <strong>${FW_SHORT[k]}</strong>
+                  <span class="compat-badge c-${st}">${STATUS_LABEL[st]}</span>
+                </div>
+                <div class="muted">${why}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+      renderConceptMatrix();
+    }
+
+    function renderConceptMatrix() {
+      renderConceptFilters();
+      const rows = activeOrigin === 'all' ? UNIQUE_CONCEPTS : UNIQUE_CONCEPTS.filter(c => c.origin === activeOrigin);
+      document.getElementById('uc-matrix-tbody').innerHTML = rows.map(c => `
+        <tr class="matrix-row ${c.id === selectedConceptId ? 'active-row' : ''}" onclick="selectConcept('${c.id}')">
+          <td>
+            <div style="font-weight:700;">${c.concept}</div>
+            <div class="muted" style="font-size:11px;">From: ${FW_SHORT[c.origin]}</div>
+          </td>
+          ${FW_KEYS.map(k => {
+            const [st, why] = c.responses[k];
+            return `<td title="${why.replace(/"/g, '&quot;')}"><span class="compat-badge c-${st}">${STATUS_LABEL[st]}</span></td>`;
+          }).join('')}
+        </tr>
+      `).join('');
+    }
+
+    // ---------- TAB 3: ROLES, TEAM ORG, TEAM SIZE & HANDSHAKES ----------
+    function renderOrgTable(q = '') {
+      const query = q.trim().toLowerCase();
+      const rows = ORG_MATRIX.filter(r => !query || JSON.stringify(r).toLowerCase().includes(query));
+      document.getElementById('org-count').textContent = `Showing ${rows.length} of ${ORG_MATRIX.length} frameworks`;
+
+      document.getElementById('org-tbody').innerHTML = rows.map(r => `
+        <tr>
+          <td><a href="${r.href}" style="font-weight:700;white-space:nowrap;">${r.name}</a></td>
+          <td><span class="pill ${r.pill}" style="white-space:normal;border-radius:8px;">${r.teamSize}</span></td>
+          <td class="muted">${r.teamOrg}</td>
+          <td>${r.roles}</td>
+          <td class="muted">${r.roleHandshakes}</td>
+          <td>${r.phaseHandshakes}</td>
+        </tr>
+      `).join('');
+    }
+
+    // ---------- TAB 4: SWOT ANALYSIS ----------
+    let swotFilter = 'all';
+    function renderSwot() {
+      document.getElementById('swot-filter-bar').innerHTML = [
+        ['all', 'All 10'],
+        ...FRAMEWORKS_MATRIX.map(f => [f.id, f.name])
+      ].map(([id, lbl]) => `
+        <button onclick="swotFilter='${id}';renderSwot()" class="child-chip"
+          style="${swotFilter === id ? 'border-color:var(--primary);background:#eef2ff;font-weight:600;color:var(--primary);' : ''}">${lbl}</button>
+      `).join('');
+
+      const list = swotFilter === 'all' ? FRAMEWORKS_MATRIX : FRAMEWORKS_MATRIX.filter(f => f.id === swotFilter);
+      const grid = document.getElementById('swot-cards-grid');
+      grid.className = list.length === 1 ? 'section' : 'grid-2';
+      grid.innerHTML = list.map(f => {
+        const s = SWOT_MATRIX[f.id];
+        return `
+          <div class="card stack-md" style="border-top:3px solid ${f.color};">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <a href="${f.href}" style="font-weight:700;font-size:15.5px;color:var(--foreground);">${f.name} →</a>
+              <span class="pill ${f.pill}">${f.category}</span>
+            </div>
+            <div class="grid-2 xs" style="gap:10px;">
+              <div class="sub-box" style="background:#f0fdf4;border-color:#bbf7d0;">
+                <div style="font-weight:700;color:#166534;margin-bottom:4px;">Strengths</div>
+                <ul style="margin:0;padding-left:16px;">${s.S.map(x => `<li>${x}</li>`).join('')}</ul>
+              </div>
+              <div class="sub-box" style="background:#fffbeb;border-color:#fde68a;">
+                <div style="font-weight:700;color:#92400e;margin-bottom:4px;">Weaknesses</div>
+                <ul style="margin:0;padding-left:16px;">${s.W.map(x => `<li>${x}</li>`).join('')}</ul>
+              </div>
+              <div class="sub-box" style="background:#eff6ff;border-color:#bfdbfe;">
+                <div style="font-weight:700;color:#1e40af;margin-bottom:4px;">Opportunities</div>
+                <ul style="margin:0;padding-left:16px;">${s.O.map(x => `<li>${x}</li>`).join('')}</ul>
+              </div>
+              <div class="sub-box" style="background:#fef2f2;border-color:#fecaca;">
+                <div style="font-weight:700;color:#991b1b;margin-bottom:4px;">Threats</div>
+                <ul style="margin:0;padding-left:16px;">${s.T.map(x => `<li>${x}</li>`).join('')}</ul>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ---------- INIT ----------
     renderQuadrant();
     renderH2H();
     renderTables();
+    selectConcept(UNIQUE_CONCEPTS[0].id);
+    renderOrgTable();
+    renderSwot();
+
+    const hash = location.hash.replace('#', '');
+    if (CTABS.includes(hash)) switchCompTab(hash);
   </script>
 </body>
 </html>

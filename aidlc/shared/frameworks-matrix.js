@@ -23,7 +23,8 @@ const FRAMEWORKS_MATRIX = [
     // Positioning (0-100): x = Speed/Autonomy, y = Governance/Rigor
     pos: { x: 24, y: 95 },
     // Quantitative scores (1-10)
-    scores: { governance: 10, speed: 4, brownfield: 6, greenfield: 10, driftControl: 7, autonomy: 7, portability: 9 }
+    scores: { governance: 10, speed: 4, brownfield: 6, greenfield: 10, driftControl: 7, autonomy: 7, portability: 9, teamScale: 10, roleHandshakes: 9, phaseHandshakes: 10 },
+    teamSizeFit: { solo: 4, small: 8, medium: 10, enterprise: 10 }
   },
   {
     id: 'spec-kit',
@@ -44,7 +45,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Moderate (human reviews spec, plan, and task list once per feature)',
     weakness: 'Linear per-feature pipeline lacks cross-feature orchestration or multi-agent roles',
     pos: { x: 60, y: 62 },
-    scores: { governance: 7, speed: 7, brownfield: 7, greenfield: 7, driftControl: 6, autonomy: 4, portability: 10 }
+    scores: { governance: 7, speed: 7, brownfield: 7, greenfield: 7, driftControl: 6, autonomy: 4, portability: 10, teamScale: 7, roleHandshakes: 6, phaseHandshakes: 7 },
+    teamSizeFit: { solo: 9, small: 10, medium: 8, enterprise: 6 }
   },
   {
     id: 'bmad',
@@ -65,7 +67,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Moderate (role-based handoffs across PM, Architect, QA require steering)',
     weakness: 'Context overhead from managing 20+ agent personas and role-switching prompts',
     pos: { x: 54, y: 74 },
-    scores: { governance: 7, speed: 6, brownfield: 7, greenfield: 9, driftControl: 7, autonomy: 8, portability: 8 }
+    scores: { governance: 7, speed: 6, brownfield: 7, greenfield: 9, driftControl: 7, autonomy: 8, portability: 8, teamScale: 8, roleHandshakes: 9, phaseHandshakes: 8 },
+    teamSizeFit: { solo: 6, small: 9, medium: 10, enterprise: 8 }
   },
   {
     id: 'openspec',
@@ -86,7 +89,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Low (quick review of compact change proposals before applying tasks)',
     weakness: 'Too lightweight for complex greenfield system architecture or strict compliance audits',
     pos: { x: 86, y: 42 },
-    scores: { governance: 5, speed: 9, brownfield: 10, greenfield: 5, driftControl: 9, autonomy: 5, portability: 10 }
+    scores: { governance: 5, speed: 9, brownfield: 10, greenfield: 5, driftControl: 9, autonomy: 5, portability: 10, teamScale: 5, roleHandshakes: 5, phaseHandshakes: 6 },
+    teamSizeFit: { solo: 10, small: 10, medium: 7, enterprise: 4 }
   },
   {
     id: 'anthropic-sdlc',
@@ -107,7 +111,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'High bottleneck (mandatory human accountability & role-separated sign-offs)',
     weakness: 'Slower day-to-day shipping speed; tailored primarily around Claude Code',
     pos: { x: 30, y: 90 },
-    scores: { governance: 10, speed: 5, brownfield: 8, greenfield: 8, driftControl: 8, autonomy: 5, portability: 5 }
+    scores: { governance: 10, speed: 5, brownfield: 8, greenfield: 8, driftControl: 8, autonomy: 5, portability: 5, teamScale: 10, roleHandshakes: 10, phaseHandshakes: 9 },
+    teamSizeFit: { solo: 3, small: 7, medium: 9, enterprise: 10 }
   },
   {
     id: 'cursor-pstack',
@@ -128,7 +133,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Very Low (agents run autonomously in parallel while verifier agents check work)',
     weakness: 'High compute/token consumption, Cursor-centric, and weak regulatory auditability',
     pos: { x: 92, y: 30 },
-    scores: { governance: 3, speed: 10, brownfield: 9, greenfield: 6, driftControl: 3, autonomy: 10, portability: 3 }
+    scores: { governance: 3, speed: 10, brownfield: 9, greenfield: 6, driftControl: 3, autonomy: 10, portability: 3, teamScale: 5, roleHandshakes: 6, phaseHandshakes: 3 },
+    teamSizeFit: { solo: 10, small: 9, medium: 6, enterprise: 3 }
   },
   {
     id: 'tessl',
@@ -149,7 +155,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Low during build, High upfront (heavy investment in specs & test suites first)',
     weakness: 'Steep learning curve; awkward fit for messy legacy monoliths without strong tests',
     pos: { x: 64, y: 78 },
-    scores: { governance: 8, speed: 6, brownfield: 5, greenfield: 8, driftControl: 10, autonomy: 8, portability: 7 }
+    scores: { governance: 8, speed: 6, brownfield: 5, greenfield: 8, driftControl: 10, autonomy: 8, portability: 7, teamScale: 8, roleHandshakes: 7, phaseHandshakes: 9 },
+    teamSizeFit: { solo: 5, small: 8, medium: 9, enterprise: 8 }
   },
   {
     id: 'specs-md',
@@ -170,7 +177,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Low to Moderate (escalates to human checkpoints only when risk/complexity spikes)',
     weakness: 'Less rigorous architectural validation on large multi-service greenfield builds',
     pos: { x: 76, y: 54 },
-    scores: { governance: 6, speed: 8, brownfield: 9, greenfield: 6, driftControl: 6, autonomy: 6, portability: 8 }
+    scores: { governance: 6, speed: 8, brownfield: 9, greenfield: 6, driftControl: 6, autonomy: 6, portability: 8, teamScale: 7, roleHandshakes: 6, phaseHandshakes: 6 },
+    teamSizeFit: { solo: 9, small: 10, medium: 8, enterprise: 6 }
   },
   {
     id: 'kiro-specs',
@@ -191,7 +199,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Low to Moderate (quick review of 3 clean files, then clickable task execution)',
     weakness: 'Tied to Kiro IDE/CLI; lacks multi-agent swarms or enterprise compliance audits',
     pos: { x: 72, y: 58 },
-    scores: { governance: 6, speed: 8, brownfield: 8, greenfield: 7, driftControl: 7, autonomy: 5, portability: 3 }
+    scores: { governance: 6, speed: 8, brownfield: 8, greenfield: 7, driftControl: 7, autonomy: 5, portability: 3, teamScale: 6, roleHandshakes: 6, phaseHandshakes: 7 },
+    teamSizeFit: { solo: 10, small: 9, medium: 7, enterprise: 5 }
   },
   {
     id: 'superpowers',
@@ -212,7 +221,8 @@ const FRAMEWORKS_MATRIX = [
     bottleneck: 'Low to Moderate (human approves design & plan; subagents execute & self-verify)',
     weakness: 'Prompt/skill-enforced rather than compiled deterministic hooks; higher token use on trivial fixes',
     pos: { x: 70, y: 68 },
-    scores: { governance: 6, speed: 7, brownfield: 8, greenfield: 7, driftControl: 7, autonomy: 9, portability: 8 }
+    scores: { governance: 6, speed: 7, brownfield: 8, greenfield: 7, driftControl: 7, autonomy: 9, portability: 8, teamScale: 6, roleHandshakes: 8, phaseHandshakes: 7 },
+    teamSizeFit: { solo: 10, small: 10, medium: 7, enterprise: 5 }
   }
 ];
 
@@ -223,5 +233,8 @@ const DIMENSIONS = [
   { key: 'greenfield', label: 'Complex Greenfield Architecture', desc: 'Upfront DDD, system design, multi-service architecture depth' },
   { key: 'driftControl', label: 'Spec Drift Prevention', desc: 'Keeps specs/docs accurate and synced with code post-launch' },
   { key: 'autonomy', label: 'Multi-Agent & Parallel Autonomy', desc: 'Parallel swarms, specialist personas, fresh subagents' },
-  { key: 'portability', label: 'Tool & IDE Portability', desc: 'Works across multiple AI coding tools without single-IDE lock-in' }
+  { key: 'portability', label: 'Tool & IDE Portability', desc: 'Works across multiple AI coding tools without single-IDE lock-in' },
+  { key: 'teamScale', label: 'Multi-Team & Enterprise Scale', desc: 'Supports large orgs, cross-team Spaces, and shared standards' },
+  { key: 'roleHandshakes', label: 'Role Separation & Handshakes', desc: 'Structured handoffs between PO, Architect, Dev, QA & Reviewers' },
+  { key: 'phaseHandshakes', label: 'Formal Phase-Gate Handshakes', desc: 'Explicit verification boundaries & receipts between lifecycle phases' }
 ];
