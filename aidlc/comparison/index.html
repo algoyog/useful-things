@@ -34,6 +34,13 @@
     .matrix-row:hover { background: #f8fafc; }
     .matrix-row.active-row { background: #eef2ff; }
 
+    .cat-banner {
+      cursor: pointer;
+      user-select: none;
+    }
+    .cat-banner:hover td {
+      background: #e2e8f0;
+    }
     .cat-banner td {
       background: #f1f5f9;
       font-weight: 700;
@@ -347,7 +354,11 @@
             <button class="btn-sm" onclick="setDeepPreset(['openspec','cursor-pstack','specs-md','superpowers'])">Speed &amp; Brownfield</button>
             <button class="btn-sm" onclick="setDeepPreset(['aws','spec-kit','kiro-specs','openspec'])">Spec-First Classics</button>
           </div>
-          <input id="dc-param-search" class="search-input" style="width:270px;" type="text" placeholder="Filter 66 params (e.g. token, TDD, audit, ops)..." oninput="deepSearch=this.value;renderDeepCompare();" />
+          <div class="flex-wrap">
+            <input id="dc-param-search" class="search-input" style="width:240px;" type="text" placeholder="Filter 66 params (token, TDD, ops)..." oninput="deepSearch=this.value;renderDeepCompare();" />
+            <button class="btn-sm" onclick="expandAllDeepCats()">Expand All</button>
+            <button class="btn-sm" onclick="collapseAllDeepCats()">Collapse All</button>
+          </div>
         </div>
 
         <div id="dc-cat-filter" class="flex-wrap"></div>
@@ -610,6 +621,23 @@
     const deepSelected = new Set(['aws', 'spec-kit', 'openspec']);
     let deepCat = 'all';
     let deepSearch = '';
+    const deepCollapsedCats = new Set();
+
+    function toggleDeepCat(catKey) {
+      if (deepCollapsedCats.has(catKey)) deepCollapsedCats.delete(catKey);
+      else deepCollapsedCats.add(catKey);
+      renderDeepCompare();
+    }
+
+    function expandAllDeepCats() {
+      deepCollapsedCats.clear();
+      renderDeepCompare();
+    }
+
+    function collapseAllDeepCats() {
+      DEEP_CATS.forEach(([k]) => { if (k !== 'all') deepCollapsedCats.add(k); });
+      renderDeepCompare();
+    }
 
     const DEEP_CATS = [
       ['all', 'All 10 Categories'],
@@ -692,7 +720,11 @@
         });
         if (!filtered.length) return '';
         shownParams += filtered.length;
-        return `<tr class="cat-banner"><td colspan="${colSpan}">${title} (${filtered.length})</td></tr>` +
+        const isCollapsed = !q && deepCollapsedCats.has(catKey);
+        const arrow = isCollapsed ? '▸' : '▾';
+        const headerRow = `<tr class="cat-banner" onclick="toggleDeepCat('${catKey}')"><td colspan="${colSpan}"><span style="display:inline-block;width:16px;">${arrow}</span>${title} <span class="muted" style="font-weight:500;">(${filtered.length} params${isCollapsed ? ' · click to expand' : ''})</span></td></tr>`;
+        if (isCollapsed) return headerRow;
+        return headerRow +
           filtered.map(r => r.rawHtml ? r.rawHtml() : `<tr><td class="dc-param-col">${r.label}</td>${cols.map(c => `<td>${r.render(c)}</td>`).join('')}</tr>`).join('');
       }
 
