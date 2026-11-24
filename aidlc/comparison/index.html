@@ -330,22 +330,27 @@
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
           <div>
             <h2 class="card-title">Deep Side-by-Side Comparison — Pick Up to 4 Frameworks</h2>
-            <div class="muted">Compares your selected frameworks across <strong>all 40+ parameters</strong> organized into 6 clean categories.</div>
+            <div class="muted">Compares your selected frameworks across <strong>all 66 engineering, governance, cost, org, lifecycle, rubric, SWOT &amp; concept parameters</strong> organized into 10 readable categories.</div>
           </div>
-          <span id="dc-counter" class="pill pill-primary">Selected: 3 / 4 max</span>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span id="dc-param-count" class="xs mono muted"></span>
+            <span id="dc-counter" class="pill pill-primary">Selected: 3 / 4 max</span>
+          </div>
         </div>
 
         <div id="dc-picker" class="flex-wrap"></div>
 
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:6px;border-top:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-top:8px;border-top:1px solid var(--border);">
           <div class="flex-wrap">
             <span class="muted" style="font-weight:600;">Quick Matchups:</span>
             <button class="btn-sm" onclick="setDeepPreset(['aws','anthropic-sdlc','bmad','tessl'])">Enterprise &amp; Rigor</button>
             <button class="btn-sm" onclick="setDeepPreset(['openspec','cursor-pstack','specs-md','superpowers'])">Speed &amp; Brownfield</button>
             <button class="btn-sm" onclick="setDeepPreset(['aws','spec-kit','kiro-specs','openspec'])">Spec-First Classics</button>
           </div>
-          <div id="dc-cat-filter" class="flex-wrap"></div>
+          <input id="dc-param-search" class="search-input" style="width:270px;" type="text" placeholder="Filter 66 params (e.g. token, TDD, audit, ops)..." oninput="deepSearch=this.value;renderDeepCompare();" />
         </div>
+
+        <div id="dc-cat-filter" class="flex-wrap"></div>
       </div>
 
       <div class="card card-flush">
@@ -359,8 +364,9 @@
     </section>
   </main>
 
-  <script src="../shared/frameworks-matrix.js?v=5"></script>
-  <script src="../shared/comparison-deep.js?v=5"></script>
+  <script src="../shared/frameworks-matrix.js?v=6"></script>
+  <script src="../shared/comparison-deep.js?v=6"></script>
+  <script src="../shared/deep-params.js?v=6"></script>
   <script>
     // ---------- SUB-TAB SWITCHING ----------
     const CTABS = ['overview', 'concepts', 'org', 'swot', 'deep'];
@@ -600,18 +606,23 @@
       }).join('');
     }
 
-    // ---------- TAB 5: DEEP SIDE-BY-SIDE (MAX 4, ALL PARAMS CATEGORIZED) ----------
+    // ---------- TAB 5: DEEP SIDE-BY-SIDE (MAX 4, ALL 66 PARAMS IN 10 CATEGORIES) ----------
     const deepSelected = new Set(['aws', 'spec-kit', 'openspec']);
     let deepCat = 'all';
+    let deepSearch = '';
 
     const DEEP_CATS = [
-      ['all', 'All Categories (6)'],
-      ['identity', '1. Core Identity'],
-      ['arch', '2. Workflow & Tooling'],
-      ['tradeoffs', '3. Engineering Trade-offs'],
-      ['org', '4. Roles, Team & Handshakes'],
-      ['scores', '5. Rubric Scores (1–10)'],
-      ['swot', '6. SWOT & Concept Compat.']
+      ['all', 'All 10 Categories'],
+      ['identity', '1. Identity'],
+      ['arch', '2. Architecture & Artifacts'],
+      ['exec', '3. Execution, TDD & Review'],
+      ['tradeoffs', '4. Trade-offs'],
+      ['gov', '5. Governance & Security'],
+      ['cost', '6. Cost & Adoption'],
+      ['org', '7. Roles, Org & Handshakes'],
+      ['lifecycle', '8. Lifecycle Coverage'],
+      ['scores', '9. Scores (1–10)'],
+      ['swot', '10. SWOT & Concepts']
     ];
 
     function setDeepPreset(ids) {
@@ -632,8 +643,7 @@
 
     function renderDeepCompare() {
       const count = deepSelected.size;
-      const counter = document.getElementById('dc-counter');
-      counter.textContent = `Selected: ${count} / 4 max`;
+      document.getElementById('dc-counter').textContent = `Selected: ${count} / 4 max`;
 
       document.getElementById('dc-picker').innerHTML = FRAMEWORKS_MATRIX.map(f => {
         const on = deepSelected.has(f.id);
@@ -650,7 +660,8 @@
       const cols = FRAMEWORKS_MATRIX.filter(f => deepSelected.has(f.id)).map(f => ({
         ...f,
         orgInfo: ORG_MATRIX.find(o => o.id === f.id),
-        swot: SWOT_MATRIX[f.id]
+        swot: SWOT_MATRIX[f.id],
+        ex: DEEP_EXTRA_PARAMS[f.id]
       }));
 
       const colSpan = cols.length + 1;
@@ -669,49 +680,96 @@
         </tr>
       `;
 
-      const row = (label, fn) => `<tr><td class="dc-param-col">${label}</td>${cols.map(c => `<td>${fn(c)}</td>`).join('')}</tr>`;
-      const banner = (title) => `<tr class="cat-banner"><td colspan="${colSpan}">${title}</td></tr>`;
+      const q = deepSearch.trim().toLowerCase();
+      let shownParams = 0;
 
+      function buildCat(catKey, title, rowsList) {
+        if (deepCat !== 'all' && deepCat !== catKey) return '';
+        const filtered = rowsList.filter(r => {
+          if (!q) return true;
+          const haystack = (r.label + ' ' + title + ' ' + cols.map(c => r.text ? r.text(c) : '').join(' ')).toLowerCase();
+          return haystack.includes(q);
+        });
+        if (!filtered.length) return '';
+        shownParams += filtered.length;
+        return `<tr class="cat-banner"><td colspan="${colSpan}">${title} (${filtered.length})</td></tr>` +
+          filtered.map(r => r.rawHtml ? r.rawHtml() : `<tr><td class="dc-param-col">${r.label}</td>${cols.map(c => `<td>${r.render(c)}</td>`).join('')}</tr>`).join('');
+      }
+
+      const R = (label, fn) => ({ label, render: fn, text: fn });
       let html = '';
 
-      if (deepCat === 'all' || deepCat === 'identity') {
-        html += banner('1. Core Identity & Philosophy');
-        html += row('Organization / Origin', c => `<strong>${c.org}</strong>`);
-        html += row('Category / Paradigm', c => `<span class="pill ${c.pill}">${c.category}</span>`);
-        html += row('Core Philosophy', c => c.philosophy);
-        html += row('Best Use Case', c => c.bestUseCase);
-      }
+      html += buildCat('identity', '1. Core Identity & Philosophy', [
+        R('Organization / Origin', c => `<strong>${c.org}</strong>`),
+        R('Category / Paradigm', c => `<span class="pill ${c.pill}">${c.category}</span>`),
+        R('Core Philosophy', c => c.philosophy),
+        R('Best Use Case', c => c.bestUseCase)
+      ]);
 
-      if (deepCat === 'all' || deepCat === 'arch') {
-        html += banner('2. Architecture, Workflow & Tooling');
-        html += row('Workflow Structure', c => c.structure);
-        html += row('Supported Agents & IDEs', c => c.tools);
-        html += row('Ceremony & Overhead', c => `<span class="pill ${c.pill}">${c.ceremony}</span>`);
-      }
+      html += buildCat('arch', '2. Architecture, Workflow & Artifact Model', [
+        R('Workflow Structure', c => c.structure),
+        R('Supported Agents & IDEs', c => c.tools),
+        R('Ceremony & Overhead', c => `<span class="pill ${c.pill}">${c.ceremony}</span>`),
+        R('Primary Source of Truth', c => c.ex.sourceOfTruth),
+        R('Context & Memory Persistence', c => c.ex.contextMemory),
+        R('Spec Format & Notation', c => c.ex.specFormat)
+      ]);
 
-      if (deepCat === 'all' || deepCat === 'tradeoffs') {
-        html += banner('3. Engineering Trade-offs');
-        html += row('Speed vs. Governance', c => c.speedVsGov);
-        html += row('Greenfield vs. Brownfield', c => c.greenVsBrown);
-        html += row('Spec Drift & Maintenance', c => c.specDrift);
-        html += row('Human Bottleneck / Autonomy', c => c.bottleneck);
-        html += row('Main Weakness / Cost', c => c.weakness);
-      }
+      html += buildCat('exec', '3. Execution, Parallelism & Verification Mechanics', [
+        R('Execution Topology', c => c.ex.execTopology),
+        R('Parallelism & Git Isolation', c => c.ex.parallelism),
+        R('Testing & TDD Approach', c => c.ex.testingTdd),
+        R('Code Review & Adversarial QA', c => c.ex.codeReview),
+        R('Debugging & Recovery Strategy', c => c.ex.debugging),
+        R('Enforcement Mechanism', c => c.ex.enforcement)
+      ]);
 
-      if (deepCat === 'all' || deepCat === 'org') {
-        html += banner('4. Roles, Team Organization, Team Size & Handshakes');
-        html += row('Ideal Team Size', c => `<span class="pill ${c.pill}" style="white-space:normal;border-radius:8px;">${c.orgInfo.teamSize}</span>`);
-        html += row('Team Organization & Silos', c => c.orgInfo.teamOrg);
-        html += row('Human & AI Roles', c => c.orgInfo.roles);
-        html += row('Handshakes Between Roles', c => c.orgInfo.roleHandshakes);
-        html += row('Handshakes Between Phases', c => c.orgInfo.phaseHandshakes);
-      }
+      html += buildCat('tradeoffs', '4. Engineering Trade-offs & Risk', [
+        R('Speed vs. Governance', c => c.speedVsGov),
+        R('Greenfield vs. Brownfield', c => c.greenVsBrown),
+        R('Spec Drift & Maintenance', c => c.specDrift),
+        R('Human Bottleneck / Autonomy', c => c.bottleneck),
+        R('Main Weakness / Cost', c => c.weakness)
+      ]);
 
-      if (deepCat === 'all' || deepCat === 'scores') {
-        html += banner('5. Quantitative Rubric Scores (1–10 · Highest in Row Highlighted)');
-        DIMENSIONS.forEach(d => {
+      html += buildCat('gov', '5. Governance, Security & Compliance', [
+        R('Audit Trail & Provenance', c => c.ex.auditTrail),
+        R('Separation of Duties', c => c.ex.sepDuties),
+        R('Change Control & Guardrails', c => c.ex.guardrails),
+        R('Regulated Industry Readiness', c => c.ex.compliance),
+        R('Safety & Blast-Radius Controls', c => c.ex.safety)
+      ]);
+
+      html += buildCat('cost', '6. Cost, Performance & Adoption Friction', [
+        R('Token & Compute Burn', c => c.ex.tokenBurn),
+        R('Onboarding / Learning Curve', c => c.ex.learningCurve),
+        R('Setup & Runtime Dependencies', c => c.ex.runtimeDeps),
+        R('Vendor / IDE Lock-In Risk', c => c.ex.lockIn),
+        R('Extensibility & Plugins', c => c.ex.extensibility)
+      ]);
+
+      html += buildCat('org', '7. Roles, Team Organization, Team Size & Handshakes', [
+        R('Ideal Team Size', c => `<span class="pill ${c.pill}" style="white-space:normal;border-radius:8px;">${c.orgInfo.teamSize}</span>`),
+        R('Team Organization & Silos', c => c.orgInfo.teamOrg),
+        R('Human & AI Roles', c => c.orgInfo.roles),
+        R('Handshakes Between Roles', c => c.orgInfo.roleHandshakes),
+        R('Handshakes Between Phases', c => c.orgInfo.phaseHandshakes)
+      ]);
+
+      html += buildCat('lifecycle', '8. End-to-End Lifecycle Coverage (Ideation → Ops)', [
+        R('Ideation & Discovery', c => c.ex.lcIdeation),
+        R('Requirements & Design', c => c.ex.lcDesign),
+        R('Implementation & Build', c => c.ex.lcBuild),
+        R('Deployment & IaC', c => c.ex.lcDeploy),
+        R('Operations & Incident Feedback', c => c.ex.lcOps)
+      ]);
+
+      html += buildCat('scores', '9. Quantitative Rubric Scores (1–10 · Highest Highlighted)', DIMENSIONS.map(d => ({
+        label: d.label + ' ' + d.desc,
+        text: () => '',
+        rawHtml: () => {
           const maxVal = Math.max(...cols.map(c => c.scores[d.key]));
-          html += `<tr><td class="dc-param-col">${d.label}<div class="muted" style="font-weight:400;font-size:11px;">${d.desc}</div></td>${cols.map(c => {
+          return `<tr><td class="dc-param-col">${d.label}<div class="muted" style="font-weight:400;font-size:11px;">${d.desc}</div></td>${cols.map(c => {
             const v = c.scores[d.key];
             const isBest = cols.length > 1 && v === maxVal;
             return `<td class="${isBest ? 'best-score' : ''}">
@@ -722,24 +780,22 @@
               <div class="bar-track"><div class="bar-fill" style="width:${v * 10}%;background:${c.color};"></div></div>
             </td>`;
           }).join('')}</tr>`;
-        });
-      }
+        }
+      })));
 
-      if (deepCat === 'all' || deepCat === 'swot') {
-        html += banner('6. SWOT Breakdown & Unique Concept Compatibility');
-        html += row('Strengths', c => `<ul style="margin:0;padding-left:16px;color:#166534;">${c.swot.S.map(x => `<li>${x}</li>`).join('')}</ul>`);
-        html += row('Weaknesses', c => `<ul style="margin:0;padding-left:16px;color:#92400e;">${c.swot.W.map(x => `<li>${x}</li>`).join('')}</ul>`);
-        html += row('Opportunities', c => `<ul style="margin:0;padding-left:16px;color:#1e40af;">${c.swot.O.map(x => `<li>${x}</li>`).join('')}</ul>`);
-        html += row('Threats', c => `<ul style="margin:0;padding-left:16px;color:#991b1b;">${c.swot.T.map(x => `<li>${x}</li>`).join('')}</ul>`);
-        UNIQUE_CONCEPTS.forEach(uc => {
-          html += row(`Concept: ${uc.concept}`, c => {
-            const [st, why] = uc.responses[c.id];
-            return `<div style="margin-bottom:4px;"><span class="compat-badge c-${st}">${STATUS_LABEL[st]}</span></div><div class="muted" style="font-size:11.5px;">${why}</div>`;
-          });
-        });
-      }
+      html += buildCat('swot', '10. SWOT Breakdown & Unique Concept Compatibility', [
+        R('SWOT · Strengths', c => `<ul style="margin:0;padding-left:16px;color:#166534;">${c.swot.S.map(x => `<li>${x}</li>`).join('')}</ul>`),
+        R('SWOT · Weaknesses', c => `<ul style="margin:0;padding-left:16px;color:#92400e;">${c.swot.W.map(x => `<li>${x}</li>`).join('')}</ul>`),
+        R('SWOT · Opportunities', c => `<ul style="margin:0;padding-left:16px;color:#1e40af;">${c.swot.O.map(x => `<li>${x}</li>`).join('')}</ul>`),
+        R('SWOT · Threats', c => `<ul style="margin:0;padding-left:16px;color:#991b1b;">${c.swot.T.map(x => `<li>${x}</li>`).join('')}</ul>`),
+        ...UNIQUE_CONCEPTS.map(uc => R(`Concept: ${uc.concept}`, c => {
+          const [st, why] = uc.responses[c.id];
+          return `<div style="margin-bottom:4px;"><span class="compat-badge c-${st}">${STATUS_LABEL[st]}</span></div><div class="muted" style="font-size:11.5px;">${why}</div>`;
+        }))
+      ]);
 
-      document.getElementById('dc-tbody').innerHTML = html;
+      document.getElementById('dc-param-count').textContent = `Showing ${shownParams} parameters`;
+      document.getElementById('dc-tbody').innerHTML = html || `<tr><td colspan="${colSpan}" class="muted" style="padding:20px;text-align:center;">No parameters match "${deepSearch}".</td></tr>`;
     }
 
     // ---------- INIT ----------
