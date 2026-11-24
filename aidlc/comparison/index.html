@@ -33,6 +33,34 @@
     .matrix-row { cursor: pointer; transition: background-color 0.12s ease; }
     .matrix-row:hover { background: #f8fafc; }
     .matrix-row.active-row { background: #eef2ff; }
+
+    .cat-banner td {
+      background: #f1f5f9;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--foreground);
+      padding: 9px 14px;
+      border-top: 2px solid var(--border);
+    }
+    .dc-table th {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: var(--card);
+      border-bottom: 2px solid var(--border);
+    }
+    .dc-param-col {
+      width: 210px;
+      min-width: 185px;
+      font-weight: 600;
+      background: var(--content);
+      color: var(--foreground);
+    }
+    .best-score {
+      background: #f0fdf4;
+    }
   </style>
 </head>
 <body>
@@ -54,12 +82,13 @@
       <p>Switch between the <strong>Overview &amp; Trade-offs Matrix</strong>, the <strong>Unique Concepts Cross-Compatibility Matrix</strong>, and the <strong>Roles, Team Org &amp; Handshakes Breakdown</strong>.</p>
     </header>
 
-    <!-- 3 Sub-Tabs -->
+    <!-- 5 Sub-Tabs -->
     <nav class="subtabs">
       <button id="stab-overview" class="subtab-btn active" onclick="switchCompTab('overview')">1. Overview, Quadrant &amp; Trade-offs</button>
       <button id="stab-concepts" class="subtab-btn" onclick="switchCompTab('concepts')">2. Unique Concepts &amp; Compatibility</button>
       <button id="stab-org" class="subtab-btn" onclick="switchCompTab('org')">3. Roles, Team Org, Size &amp; Handshakes</button>
       <button id="stab-swot" class="subtab-btn" onclick="switchCompTab('swot')">4. SWOT Analysis (All 10)</button>
+      <button id="stab-deep" class="subtab-btn" onclick="switchCompTab('deep')">5. Deep Side-by-Side (Pick up to 4)</button>
     </nav>
 
     <!-- =============================================================== -->
@@ -292,13 +321,49 @@
       </div>
       <div id="swot-cards-grid" class="grid-2"></div>
     </section>
+
+    <!-- =============================================================== -->
+    <!-- TAB 5: DEEP SIDE-BY-SIDE (PICK UP TO 4, ALL PARAMS CATEGORIZED) -->
+    <!-- =============================================================== -->
+    <section id="ctab-deep" class="section hidden">
+      <div class="card stack-md xs">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h2 class="card-title">Deep Side-by-Side Comparison — Pick Up to 4 Frameworks</h2>
+            <div class="muted">Compares your selected frameworks across <strong>all 40+ parameters</strong> organized into 6 clean categories.</div>
+          </div>
+          <span id="dc-counter" class="pill pill-primary">Selected: 3 / 4 max</span>
+        </div>
+
+        <div id="dc-picker" class="flex-wrap"></div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:6px;border-top:1px solid var(--border);">
+          <div class="flex-wrap">
+            <span class="muted" style="font-weight:600;">Quick Matchups:</span>
+            <button class="btn-sm" onclick="setDeepPreset(['aws','anthropic-sdlc','bmad','tessl'])">Enterprise &amp; Rigor</button>
+            <button class="btn-sm" onclick="setDeepPreset(['openspec','cursor-pstack','specs-md','superpowers'])">Speed &amp; Brownfield</button>
+            <button class="btn-sm" onclick="setDeepPreset(['aws','spec-kit','kiro-specs','openspec'])">Spec-First Classics</button>
+          </div>
+          <div id="dc-cat-filter" class="flex-wrap"></div>
+        </div>
+      </div>
+
+      <div class="card card-flush">
+        <div class="table-wrap" style="max-height:78vh;overflow:auto;">
+          <table class="dc-table">
+            <thead id="dc-thead"></thead>
+            <tbody id="dc-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script src="../shared/frameworks-matrix.js?v=4"></script>
-  <script src="../shared/comparison-deep.js?v=4"></script>
+  <script src="../shared/frameworks-matrix.js?v=5"></script>
+  <script src="../shared/comparison-deep.js?v=5"></script>
   <script>
     // ---------- SUB-TAB SWITCHING ----------
-    const CTABS = ['overview', 'concepts', 'org', 'swot'];
+    const CTABS = ['overview', 'concepts', 'org', 'swot', 'deep'];
     function switchCompTab(tab) {
       CTABS.forEach(t => {
         document.getElementById(`ctab-${t}`).classList.toggle('hidden', t !== tab);
@@ -535,6 +600,148 @@
       }).join('');
     }
 
+    // ---------- TAB 5: DEEP SIDE-BY-SIDE (MAX 4, ALL PARAMS CATEGORIZED) ----------
+    const deepSelected = new Set(['aws', 'spec-kit', 'openspec']);
+    let deepCat = 'all';
+
+    const DEEP_CATS = [
+      ['all', 'All Categories (6)'],
+      ['identity', '1. Core Identity'],
+      ['arch', '2. Workflow & Tooling'],
+      ['tradeoffs', '3. Engineering Trade-offs'],
+      ['org', '4. Roles, Team & Handshakes'],
+      ['scores', '5. Rubric Scores (1–10)'],
+      ['swot', '6. SWOT & Concept Compat.']
+    ];
+
+    function setDeepPreset(ids) {
+      deepSelected.clear();
+      ids.slice(0, 4).forEach(id => deepSelected.add(id));
+      renderDeepCompare();
+    }
+
+    function toggleDeepFw(id) {
+      if (deepSelected.has(id)) {
+        if (deepSelected.size > 1) deepSelected.delete(id);
+      } else {
+        if (deepSelected.size >= 4) return;
+        deepSelected.add(id);
+      }
+      renderDeepCompare();
+    }
+
+    function renderDeepCompare() {
+      const count = deepSelected.size;
+      const counter = document.getElementById('dc-counter');
+      counter.textContent = `Selected: ${count} / 4 max`;
+
+      document.getElementById('dc-picker').innerHTML = FRAMEWORKS_MATRIX.map(f => {
+        const on = deepSelected.has(f.id);
+        const disabled = !on && count >= 4;
+        return `<button onclick="toggleDeepFw('${f.id}')" class="child-chip" ${disabled ? 'disabled style="opacity:0.45;cursor:not-allowed;"' : ''}
+          style="${on ? `border-color:${f.color};background:color-mix(in srgb, ${f.color} 14%, white);font-weight:700;` : ''}">${on ? '✓ ' : '+ '}${f.name}</button>`;
+      }).join('');
+
+      document.getElementById('dc-cat-filter').innerHTML = DEEP_CATS.map(([k, lbl]) => `
+        <button onclick="deepCat='${k}';renderDeepCompare();" class="child-chip"
+          style="${deepCat === k ? 'border-color:var(--primary);background:#eef2ff;font-weight:600;color:var(--primary);' : ''}">${lbl}</button>
+      `).join('');
+
+      const cols = FRAMEWORKS_MATRIX.filter(f => deepSelected.has(f.id)).map(f => ({
+        ...f,
+        orgInfo: ORG_MATRIX.find(o => o.id === f.id),
+        swot: SWOT_MATRIX[f.id]
+      }));
+
+      const colSpan = cols.length + 1;
+      document.getElementById('dc-thead').innerHTML = `
+        <tr>
+          <th class="dc-param-col">Parameter</th>
+          ${cols.map(c => `
+            <th style="border-top:4px solid ${c.color};min-width:210px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+                <a href="${c.href}" style="font-weight:700;font-size:13.5px;color:var(--foreground);">${c.name} →</a>
+                <button class="clear-btn" style="position:static;" title="Remove" onclick="toggleDeepFw('${c.id}')">✕</button>
+              </div>
+              <div class="muted" style="font-weight:400;font-size:11px;margin-top:2px;">${c.org} · ${c.category}</div>
+            </th>
+          `).join('')}
+        </tr>
+      `;
+
+      const row = (label, fn) => `<tr><td class="dc-param-col">${label}</td>${cols.map(c => `<td>${fn(c)}</td>`).join('')}</tr>`;
+      const banner = (title) => `<tr class="cat-banner"><td colspan="${colSpan}">${title}</td></tr>`;
+
+      let html = '';
+
+      if (deepCat === 'all' || deepCat === 'identity') {
+        html += banner('1. Core Identity & Philosophy');
+        html += row('Organization / Origin', c => `<strong>${c.org}</strong>`);
+        html += row('Category / Paradigm', c => `<span class="pill ${c.pill}">${c.category}</span>`);
+        html += row('Core Philosophy', c => c.philosophy);
+        html += row('Best Use Case', c => c.bestUseCase);
+      }
+
+      if (deepCat === 'all' || deepCat === 'arch') {
+        html += banner('2. Architecture, Workflow & Tooling');
+        html += row('Workflow Structure', c => c.structure);
+        html += row('Supported Agents & IDEs', c => c.tools);
+        html += row('Ceremony & Overhead', c => `<span class="pill ${c.pill}">${c.ceremony}</span>`);
+      }
+
+      if (deepCat === 'all' || deepCat === 'tradeoffs') {
+        html += banner('3. Engineering Trade-offs');
+        html += row('Speed vs. Governance', c => c.speedVsGov);
+        html += row('Greenfield vs. Brownfield', c => c.greenVsBrown);
+        html += row('Spec Drift & Maintenance', c => c.specDrift);
+        html += row('Human Bottleneck / Autonomy', c => c.bottleneck);
+        html += row('Main Weakness / Cost', c => c.weakness);
+      }
+
+      if (deepCat === 'all' || deepCat === 'org') {
+        html += banner('4. Roles, Team Organization, Team Size & Handshakes');
+        html += row('Ideal Team Size', c => `<span class="pill ${c.pill}" style="white-space:normal;border-radius:8px;">${c.orgInfo.teamSize}</span>`);
+        html += row('Team Organization & Silos', c => c.orgInfo.teamOrg);
+        html += row('Human & AI Roles', c => c.orgInfo.roles);
+        html += row('Handshakes Between Roles', c => c.orgInfo.roleHandshakes);
+        html += row('Handshakes Between Phases', c => c.orgInfo.phaseHandshakes);
+      }
+
+      if (deepCat === 'all' || deepCat === 'scores') {
+        html += banner('5. Quantitative Rubric Scores (1–10 · Highest in Row Highlighted)');
+        DIMENSIONS.forEach(d => {
+          const maxVal = Math.max(...cols.map(c => c.scores[d.key]));
+          html += `<tr><td class="dc-param-col">${d.label}<div class="muted" style="font-weight:400;font-size:11px;">${d.desc}</div></td>${cols.map(c => {
+            const v = c.scores[d.key];
+            const isBest = cols.length > 1 && v === maxVal;
+            return `<td class="${isBest ? 'best-score' : ''}">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <strong class="mono">${v} / 10</strong>
+                ${isBest ? '<span style="font-size:10.5px;color:#166534;font-weight:700;">★ Best</span>' : ''}
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:${v * 10}%;background:${c.color};"></div></div>
+            </td>`;
+          }).join('')}</tr>`;
+        });
+      }
+
+      if (deepCat === 'all' || deepCat === 'swot') {
+        html += banner('6. SWOT Breakdown & Unique Concept Compatibility');
+        html += row('Strengths', c => `<ul style="margin:0;padding-left:16px;color:#166534;">${c.swot.S.map(x => `<li>${x}</li>`).join('')}</ul>`);
+        html += row('Weaknesses', c => `<ul style="margin:0;padding-left:16px;color:#92400e;">${c.swot.W.map(x => `<li>${x}</li>`).join('')}</ul>`);
+        html += row('Opportunities', c => `<ul style="margin:0;padding-left:16px;color:#1e40af;">${c.swot.O.map(x => `<li>${x}</li>`).join('')}</ul>`);
+        html += row('Threats', c => `<ul style="margin:0;padding-left:16px;color:#991b1b;">${c.swot.T.map(x => `<li>${x}</li>`).join('')}</ul>`);
+        UNIQUE_CONCEPTS.forEach(uc => {
+          html += row(`Concept: ${uc.concept}`, c => {
+            const [st, why] = uc.responses[c.id];
+            return `<div style="margin-bottom:4px;"><span class="compat-badge c-${st}">${STATUS_LABEL[st]}</span></div><div class="muted" style="font-size:11.5px;">${why}</div>`;
+          });
+        });
+      }
+
+      document.getElementById('dc-tbody').innerHTML = html;
+    }
+
     // ---------- INIT ----------
     renderQuadrant();
     renderH2H();
@@ -542,6 +749,7 @@
     selectConcept(UNIQUE_CONCEPTS[0].id);
     renderOrgTable();
     renderSwot();
+    renderDeepCompare();
 
     const hash = location.hash.replace('#', '');
     if (CTABS.includes(hash)) switchCompTab(hash);
