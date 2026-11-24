@@ -59,17 +59,11 @@ code {
 }
 
 .layout.sidebar-collapsed .sidebar {
-  width: 0;
-  padding-left: 0;
-  padding-right: 0;
-  border-right: none;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
+  display: none !important;
 }
 
 .layout.sidebar-collapsed .main {
-  max-width: 1480px;
+  max-width: 100%;
 }
 
 .sidebar-toggle-btn {
@@ -391,10 +385,10 @@ tr:last-child td { border-bottom: none; }
   overflow-y: auto;
 }
 .mm-insp-collapsed #mm-canvas-col {
-  grid-column: span 12;
+  grid-column: 1 / -1 !important;
 }
 .mm-insp-collapsed #mm-insp-col {
-  display: none;
+  display: none !important;
 }
 
 /* Phase buttons */

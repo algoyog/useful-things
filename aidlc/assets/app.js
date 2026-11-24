@@ -962,7 +962,7 @@ function toggleInspector() {
 // =========================================================================
 // BOOTSTRAP STATIC GRIDS
 // =========================================================================
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   document.getElementById('principles-grid').innerHTML = PRINCIPLES.map(([t, d]) => `
     <div class="sub-box xs stack-sm" style="gap:4px;">
       <div style="font-weight:600;">${t}</div>
@@ -1026,4 +1026,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   selectNode('root');
   renderPhases();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
